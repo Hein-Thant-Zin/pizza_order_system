@@ -125,7 +125,7 @@
                             {{ $categories->appends(request()->query())->links() }}
                         </div>
                     @else
-                        <h2 class="mt-5 text-center align-content-center">There is no Category</h2>
+                        <h2 class="mt-5 text-center align">There is no Category</h2>
 
                     @endif
                     <!-- END DATA TABLE -->
