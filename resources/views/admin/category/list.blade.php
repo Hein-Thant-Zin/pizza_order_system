@@ -86,20 +86,19 @@
                                 <tbody>
                                     @foreach ($categories as $category)
                                         <tr class="tr-shadow">
-                                            <td>{{ $category->category_id }}</td>
+                                            <td>{{ $category->id }}</td>
                                             <td class="col-6">{{ $category->name }}</td>
                                             <td>{{ $category->created_at->format('j-F-Y') }}</td>
                                             <td>
                                                 <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="View">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <a href="{{ route('category#delete', $category->category_id) }}">
+
+                                                    <a href="{{ route('category#edit', $category->id) }}">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a href="{{ route('category#delete', $category->id) }}">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>

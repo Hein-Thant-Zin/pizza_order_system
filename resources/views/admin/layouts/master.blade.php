@@ -150,13 +150,20 @@
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
                                             </div>
-                                            <div class="account-dropdown__footer">
+
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="fa-solid fa-key"></i> Change Password</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="account-dropdown__footer my-3 pt-3">
                                                 <form action="{{ route('logout') }}" method="POST"
                                                     class="d-flex justify-content-center">
                                                     @csrf
-                                                    <button type="submit"
-                                                        class="col rounded btn-outline-dark m-1 p-2  text-center">
-                                                        <i class="zmdi zmdi-power"></i>Logout</a>
+                                                    <button type="submit" class="btn bg-dark text-white col-11">
+                                                        <i class="zmdi zmdi-power"></i> Logout</a>
                                                     </button>
                                                 </form>
                                             </div>
