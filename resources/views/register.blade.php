@@ -9,7 +9,8 @@
             @enderror
             <div class="form-group">
                 <label>Username</label>
-                <input class="au-input au-input--full" type="text" name="name" placeholder="Username">
+                <input class="au-input au-input--full" type="text" value="{{ old('name') }}" name="name"
+                    placeholder="Username">
             </div>
             @error('name')
                 <small class="text-danger">{{ $message }}</small>
@@ -17,7 +18,8 @@
 
             <div class="form-group">
                 <label>Email Address</label>
-                <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                <input class="au-input au-input--full" type="email" name="email" value="{{ old('email') }}"
+                    placeholder="Email">
             </div>
             @error('email')
                 <small class="text-danger">{{ $message }}</small>
@@ -25,7 +27,8 @@
 
             <div class="form-group">
                 <label>Phone</label>
-                <input class="au-input au-input--full" type="number" name="phone" placeholder="09-xxxxxx">
+                <input class="au-input au-input--full" type="number" name="phone" value="{{ old('phone') }}"
+                    placeholder="09-xxxxxx">
             </div>
             @error('phone')
                 <small class="text-danger">{{ $message }}</small>
@@ -33,7 +36,8 @@
 
             <div class="form-group">
                 <label>Address</label>
-                <input class="au-input au-input--full" type="text" name="address" placeholder="Address">
+                <input class="au-input au-input--full" type="text" name="address" value="{{ old('address') }}"
+                    placeholder="Address">
             </div>
             @error('phone')
                 <small class="text-danger">{{ $message }}</small>
