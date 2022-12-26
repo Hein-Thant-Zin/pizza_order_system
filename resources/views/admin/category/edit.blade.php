@@ -25,7 +25,8 @@
                                         @csrf
                                         <div class="form-group">
                                             <label class="control-label b mb-1">Name</label>
-                                            <input type="hidden" name="categoryId" value="{{ $category->id }}">
+                                            <input type="hidden" id='upload' name="categoryId"
+                                                value="{{ $category->id }}">
                                             <input id="cc-pament" name="categoryName"
                                                 value="{{ old('categoryName', $category->name) }}" type="text"
                                                 class="form-control @error('categoryName') is-invalid @enderror"

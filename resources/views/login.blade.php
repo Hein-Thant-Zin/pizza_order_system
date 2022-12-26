@@ -10,9 +10,7 @@
                 <label>Email Address</label>
                 <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
             </div>
-            @error('email')
-                <span class=" text-danger">{{ $message }}</span>
-            @enderror
+
             <div class="form-group">
                 <label>Password</label>
                 <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
@@ -20,8 +18,13 @@
             @error('password')
                 <span class=" text-danger">{{ $message }}</span>
             @enderror
+            @error('email')
+                <div class=" text-center">
+                    <span class=" mb-3 text-danger">{{ $message }}</span>
+                </div>
+            @enderror
 
-            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">log in
+            <button class="au-btn au-btn--block au-btn--green mt-3  m-b-20" type="submit">log in
             </button>
 
         </form>

@@ -51,7 +51,7 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
+                <a href="{{ route('category#list') }}">
                     <img src="{{ asset('admin/images/icon/logo.png') }}" alt="Cool Admin" />
                 </a>
             </div>
@@ -128,7 +128,7 @@
                                             @if (Auth::user()->image == null)
                                                 <img src="{{ asset('admin/images/default_user.png') }}" />
                                             @else
-                                                <img src="{{ asset('admin/images/icon/avatar-01.jpg') }}" />
+                                                <img src="{{ asset('storage/' . Auth::user()->image) }}" />
                                             @endif
 
 
@@ -139,12 +139,12 @@
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <div class="image">
-                                                    <a href="#">
+                                                    <a href="{{ route('admin#details') }}">
                                                         @if (Auth::user()->image == null)
                                                             <img src="{{ asset('admin/images/default_user.png') }}" />
                                                         @else
                                                             <img
-                                                                src="{{ asset('admin/images/icon/avatar-01.jpg') }}" />
+                                                                src="{{ asset('storage/' . Auth::user()->image) }}" />
                                                         @endif
                                                     </a>
                                                 </div>

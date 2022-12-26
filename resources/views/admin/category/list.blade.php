@@ -93,9 +93,9 @@
                                                 <div class="table-data-feature">
 
                                                     <a href="{{ route('category#edit', $category->id) }}">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                             title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
+                                                            <i class="zmdi zmdi-edit "></i>
                                                         </button>
                                                     </a>
                                                     <a href="{{ route('category#delete', $category->id) }}">

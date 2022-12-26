@@ -26,20 +26,35 @@
             @enderror
 
             <div class="form-group">
-                <label>Phone</label>
+                <label>Phone Number</label>
                 <input class="au-input au-input--full" type="number" name="phone" value="{{ old('phone') }}"
-                    placeholder="09-xxxxxx">
+                    placeholder="Phone">
             </div>
             @error('phone')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
+
+
+            <div class="form-group">
+                <label>Gender</label>
+                <select name="gender" class="form-control au-input au-input--full" id="">
+                    <option class=" bg-danger" value="">Choose your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+            @error('gender')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+
 
             <div class="form-group">
                 <label>Address</label>
                 <input class="au-input au-input--full" type="text" name="address" value="{{ old('address') }}"
                     placeholder="Address">
             </div>
-            @error('phone')
+            @error('address')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+// use Storage;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -54,6 +57,69 @@ class AdminController extends Controller
         // dd('changed psw');
     }
 
+    //direct details page
+    public function details()
+    {
+        return view('admin.account.details');
+    }
+
+    //direct edit profile page
+    public function edit()
+    {
+        return view('admin.account.edit');
+    }
+
+    //update account info
+    public function update($id, Request $request)
+
+    {
+        $this->accountValidationCheck($request);
+        $data = $this->getUserData($request);
+        //for image
+        if (request()->hasFile('image')) {
+            //1 old image | check and delete | store
+            $dbImage = User::where('id', $id)->first();
+            $dbImage = $dbImage->image;
+
+            if ($dbImage != null) {
+                Storage::delete('public/' . $dbImage);
+            }
+            // dd($dbImage);
+            $fileName = uniqid() . $request->file('image')->getClientOriginalName();
+            // dd($fileName);
+            $request->file('image')->storeAs('public', $fileName);
+            $data['image'] = $fileName;
+        }
+
+        User::where('id', Auth::user()->id)->update($data);
+        return redirect()->route('admin#details')->with(['UpdateSuccess' => 'Admin Account Updated..']);
+    }
+
+    //get user data
+    private function getUserData($request)
+    {
+        return [
+            'name' => $request->name,
+            'name' => $request->name,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'phone' => $request->phone,
+            'updated_at' => Carbon::now()
+        ];
+    }
+
+    //account validation Check
+    private function accountValidationCheck($request)
+    {
+        Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'gender' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ])->validate();
+    }
+
     //password Valitation check
     private function passwordValitationCheck($request)
     {
@@ -66,9 +132,5 @@ class AdminController extends Controller
         ])->validate();
     }
 
-    //direct details page
-    public function details()
-    {
-        return view('admin.account.details');
-    }
+    //
 }
