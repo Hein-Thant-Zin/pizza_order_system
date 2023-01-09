@@ -29,7 +29,6 @@ class CategoryController extends Controller
         return view('admin.category.create');
     }
 
-    //
 
     //create category
     public function create(Request $request)
@@ -43,6 +42,7 @@ class CategoryController extends Controller
     //delete category
     public function delete($id)
     {
+        // dd($id);
         Category::where('id', $id)->delete();
         // return redirect()->route('category#list'); they are the same
         return back()->with(['deleteSuccess' => 'Category Deleted..']);

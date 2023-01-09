@@ -35,10 +35,11 @@
                             </div>
                         </div>
                         <div class="col-lg-10 offset-1">
-                            <div class="card">
-                                <div class="card-body">
+                            <div class=" card ">
+                                <div class=" card-body">
                                     <div class="card-title">
-                                        <h3 class="text-center title-2">Account Information</h3>
+                                        <h3 class="text-center title-3">Account Information
+                                        </h3>
                                     </div>
                                     <div class="row">
                                         <div class="col-3 offset-1">

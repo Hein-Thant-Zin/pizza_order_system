@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Category list Page')
+@section('title', 'Product list Page')
 
 @section('content')
     <!-- MAIN CONTENT-->
@@ -11,14 +11,14 @@
                     <div class="table-data__tool">
                         <div class="table-data__tool-left">
                             <div class="overview-wrap">
-                                <h2 class="title-1">Category List</h2>
+                                <h2 class="title-1">Products List</h2>
                             </div>
                         </div>
                         <div class="table-data__tool-right">
-                            <a href="{{ route('category#createPage') }}">
+                            <a href="{{ route('product#createPage') }}">
                                 <button type="submit"
                                     class="btn  btn-active au-btn au-btn-icon au-btn--green au-btn--small" <i
-                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add category
+                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add pizza
                                 </button>
                             </a>
                             <button class="au-btn au-btn-icon btn btn btn-active au-btn--green au-btn--small">
@@ -26,9 +26,9 @@
                             </button>
                         </div>
                     </div>
-                    {{-- alert box for categorySuccess --}}
+                    {{-- alert box for pizzaSuccess --}}
                     @if (session('createSuccess'))
-                        <div class=" col-3 offset-9">
+                        <div class=" col-4 offset-8">
                             <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
                                 <strong><i class="fa-solid fa-check"></i> {{ session('createSuccess') }}</strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -37,9 +37,9 @@
                         </div>
                     @endif
 
-                    {{-- alert box for categoryDelete --}}
+                    {{-- alert box for pizzaDelete --}}
                     @if (session('deleteSuccess'))
-                        <div class=" col-3 offset-5">
+                        <div class=" col-4 offset-8">
                             <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
                                 <strong><i class="fa-sharp fa-solid fa-circle-xmark"></i>
                                     {{ session('deleteSuccess') }}</strong>
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class=" col-3 offset-6">
-                            <form action="{{ route('category#list') }}" method="GET">
+                            <form action="{{ route('products#list') }}" method="GET">
                                 @csrf
                                 <div class="d-flex">
                                     <input type="text" name="key" placeholder="Search.." value="{{ request('key') }}"
@@ -67,38 +67,46 @@
                             </form>
                         </div>
                     </div>
-                    <div class="mt-2 ">
+                    <div class="  mt-2 ">
                         <div class="float-right ml-3 text-center col-1 offset-10 bg-white shadow-sm p-2">
-                            <h3><i class="fa-solid fa-database"></i> {{ $categories->total() }}</h3>
+                            <h3><i class="fa-solid fa-database me-1 "></i>{{ $pizzas->total() }} </h3>
                         </div>
                     </div>
-                    @if (count($categories) != 0)
+                    @if (count($pizzas) != 0)
                         <div class="table-responsive table-responsive-data2 text-center">
                             <table class="table table-data2">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
                                         <th>Category</th>
-                                        <th>Created Date</th>
-                                        <th></th>
+                                        <th>View count</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @foreach ($pizzas as $pizza)
                                         <tr class="tr-shadow">
-                                            <td>{{ $category->id }}</td>
-                                            <td class="col-6">{{ $category->name }}</td>
-                                            <td>{{ $category->created_at->format('j-F-Y') }}</td>
+                                            <td class="col-3"><img class="w-50 img-thumbnail shadow-sm"
+                                                    src="{{ asset('storage/' . $pizza->image) }}"
+                                                    alt="Cutest girl on the entire planet"></td>
+
+                                            <td>{{ $pizza->name }}</td>
+                                            <td>{{ $pizza->description }}</td>
+                                            <td>{{ $pizza->price }}</td>
+                                            <td>{{ $pizza->category_id }}</td>
+                                            <td><i class="fa-solid fa-eye me-1"></i>{{ $pizza->view_count }}</td>
                                             <td>
                                                 <div class="table-data-feature">
 
-                                                    <a href="{{ route('category#edit', $category->id) }}">
+                                                    <a href="{{ route('product#edit', $pizza->product_id) }}">
                                                         <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                             title="Edit">
                                                             <i class="zmdi zmdi-edit "></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{ route('category#delete', $category->id) }}">
+                                                    <a href="{{ route('product#delete', $pizza->product_id) }}">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>
@@ -112,8 +120,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
-                                    </tr>
                                 </tbody>
                             </table>
 
@@ -121,12 +127,17 @@
                         <div class="mt-3">
                             {{-- {{ for remaining the searching value after changing the paginate }} --}}
                             {{-- {{ $categories->links() }} --}}
-                            {{ $categories->appends(request()->query())->links() }}
+
                         </div>
                     @else
-                        <h2 class="mt-5 text-center align">There is no Category</h2>
-
+                        <h2 class="mt-5 text-center align">There is no Product</h2>
                     @endif
+
+
+
+
+
+
                     <!-- END DATA TABLE -->
                 </div>
             </div>

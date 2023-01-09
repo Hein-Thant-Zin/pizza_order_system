@@ -34,12 +34,22 @@
                                                         src="{{ asset('storage/' . Auth::user()->image) }}"class='img-thumbnail shadow-sm' />
                                                 @endif
                                                 <div class="">
-                                                    <input type="file" class=" form-control mt-2" name="image"
-                                                        id="">
+                                                    <input type="file"
+                                                        class=" form-control mt-2  @error('image') is-invalid
+
+                                                    @enderror"
+                                                        name="image" id="">
+                                                    @error('image')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+
                                                 </div>
                                                 <div class="mt-3">
                                                     <button type="submit" class="col-12 btn bg-dark text-white"><i
-                                                            class=" fa-solid fa-circle-chevron-right"></i> Update</button>
+                                                            class=" fa-solid fa-circle-chevron-right me-1"></i>
+                                                        Update</button>
                                                 </div>
                                             </div>
                                             <div class="row col-6">

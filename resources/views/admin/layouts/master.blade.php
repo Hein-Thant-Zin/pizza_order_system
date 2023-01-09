@@ -44,6 +44,12 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+        referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.46.0/full.css"
+        integrity="sha512-/n1ZBft/q8FoTO0MFeZ1wv1KF5kdJtD6F8VVH4rbRkQSKrAYZlAKj+64AR8FcDfvM5p9hz9X5e6PHcrvBFqKSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+    <link rel="icon" class="img-thumbnail" href="{{ asset('admin/images/Pizza.jpg') }}">
 </head>
 
 <body class="animsition">
@@ -62,6 +68,10 @@
                         <li>
                             <a href="{{ route('category#list') }}">
                                 <i class="fa-solid fa-list"></i>Category</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('products#list') }}">
+                                <i class="fa-solid fa-pizza-slice"></i>Products</a>
                         </li>
 
                     </ul>
@@ -174,7 +184,7 @@
                                                     class="d-flex justify-content-center">
                                                     @csrf
                                                     <button type="submit" class="btn bg-dark text-white col-11">
-                                                        <i class="zmdi zmdi-power"></i> Logout</a>
+                                                        <i class="zmdi zmdi-power me-1"></i> Logout</a>
                                                     </button>
                                                 </form>
                                             </div>

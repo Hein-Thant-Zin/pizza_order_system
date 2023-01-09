@@ -34,12 +34,14 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
+
                                         </div>
 
                                         <div>
                                             <button id="payment-button" type="submit"
-                                                class="btn btn-lg btn-info btn-block">
-                                                <span id="payment-button-amount">Create</span>
+                                                class="btn-dark btn-lg btn btn-block">
+                                                <span id="payment-button-amount"> <i
+                                                        class="fa-solid fa-circle-right me-1"></i>Create</span>
                                                 {{-- <span id="payment-button-sending" style="display:none;">Sending…</span>
                                                 <i class="fa-solid fa-circle-right"></i> --}}
                                             </button>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +58,23 @@ Route::middleware(['auth'])->group(function () {
             Route::get('password/changePage', [AdminController::class, 'changePasswordPage'])->name('admin#changePasswordPage');
             Route::post('change/password', [AdminController::class, 'changePassword'])->name('admin#changePassword');
         });
+
+
         //profile
         Route::get('details', [AdminController::class, 'details'])->name('admin#details');
         Route::get('edit', [AdminController::class, 'edit'])->name('admin#edit');
         Route::post('update/{id}', [AdminController::class, 'update'])->name('admin#update');
+
+
+        //products
+        Route::prefix('products')->group(function () {
+            Route::get('list', [ProductController::class, 'list'])->name('products#list');
+            Route::get('createPage', [ProductController::class, 'createPage'])->name('product#createPage');
+            Route::post('create', [ProductController::class, 'create'])->name('product#create');
+            Route::get('edit/{productId}', [ProductController::class, 'edit'])->name('product#edit');
+            Route::get('delete/{productId}', [ProductController::class, 'deleteProduct'])->name('product#delete');
+            Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
+        });
     });
 
 
@@ -74,7 +88,6 @@ Route::middleware(['auth'])->group(function () {
         })->name('user#home');
     });
 });
-
 
 
 
