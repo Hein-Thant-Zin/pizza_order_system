@@ -17,7 +17,7 @@
                             <div class="card ">
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <h3 class="text-center title-2">Edit your pizza</h3>
+                                        <h3 class="text-center bold  title-2">Edit your pizza</h3>
                                     </div>
                                     <hr>
                                     <form action="{{ route('product#update', $pizza->product_id) }}" method="post"
@@ -29,6 +29,8 @@
                                                     <label class="control-label b mb-1">Image</label>
                                                     <img class="img-thumbnail mb-1"
                                                         src="{{ asset('storage/' . $pizza->image) }}" alt="">
+                                                    <input type="hidden" id='upload' name="productId"
+                                                        value="{{ $pizza->product_id }}">
                                                     <input id="cc-pament" name="pizzaImage"
                                                         value="{{ old('pizzaImage', $pizza->image) }}" type="file"
                                                         class="form-control @error('pizzaImage') is-invalid @enderror"
@@ -44,13 +46,12 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label class="control-label b mb-1">Name</label>
-                                                    <input type="hidden" id='upload' name="pizzaPrice"
-                                                        value="{{ $pizza->price }}">
-                                                    <input id="cc-pament" name="pizzaPrice"
-                                                        value="{{ old('pizzaPrice', $pizza->name) }}" type="text"
-                                                        class="form-control @error('pizzaPrice') is-invalid @enderror"
+
+                                                    <input id="cc-pament" name="pizzaName"
+                                                        value="{{ old('pizzaName', $pizza->name) }}" type="text"
+                                                        class="form-control @error('pizzaName') is-invalid @enderror"
                                                         aria-required="true" aria-invalid="false" placeholder="Kway..">
-                                                    @error('pizzaPrice')
+                                                    @error('pizzaName')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>

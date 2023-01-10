@@ -36,11 +36,12 @@ class ProductController extends Controller
     //update product
     public function updateProduct(Request $request)
     {
-        dd($request->all());
+        // dd($request->productId);
+        // dd($request->all());
         $this->productValidationCheck($request);
         $data = $this->requestProductInfo($request);
         // dd($data);
-        Product::where('product_id', $request->pizzaId)->update($data);
+        Product::where('product_id', $request->productId)->update($data);
         return redirect()->route('products#list');
     }
 
@@ -88,6 +89,7 @@ class ProductController extends Controller
         return [
             'category_id' => $request->pizzaCategory,
             'name' => $request->pizzaName,
+            'product_id' => $request->productId,
             'description' => $request->pizzaDescription,
             'price' => $request->pizzaPrice,
             'waiting_time' => $request->pizzaWaitingTime,
