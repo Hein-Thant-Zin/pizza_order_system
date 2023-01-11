@@ -50,6 +50,8 @@
                     @endif
                     <div class="row">
                         <div class="col-3">
+
+
                             <h4 class=" text-secondary">Search Key : <span class="text-danger"> {{ request('key') }}</span>
                             </h4>
                         </div>
@@ -83,6 +85,7 @@
                                         <th>Price</th>
                                         <th>Category</th>
                                         <th>View count</th>
+                                        <th>Created date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,16 +100,17 @@
                                             <td>{{ $pizza->price }}</td>
                                             <td>{{ $pizza->category_id }}</td>
                                             <td><i class="fa-solid fa-eye me-1"></i>{{ $pizza->view_count }}</td>
+                                            <td>{{ $pizza->created_at->format('j-F-Y') }}</td>
                                             <td>
                                                 <div class="table-data-feature">
 
-                                                    <a href="{{ route('product#edit', $pizza->product_id) }}">
+                                                    <a href="{{ route('product#edit', $pizza->id) }}">
                                                         <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                             title="Edit">
                                                             <i class="zmdi zmdi-edit "></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{ route('product#delete', $pizza->product_id) }}">
+                                                    <a href="{{ route('product#delete', $pizza->id) }}">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>

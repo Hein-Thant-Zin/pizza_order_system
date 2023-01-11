@@ -81,7 +81,7 @@
 
                                             <label class="control-label mb-1">Waiting Time</label>
                                             <input id="cc-pament" name="pizzaWaitingTime"
-                                                value="{{ old('pizzaWaitingTime') }}" type="number"
+                                                value="{{ old('pizzaWaitingTime') }} mins " type="number"
                                                 class="form-control @error('pizzaWaitingTime') is-invalid @enderror"
                                                 aria-required="true" aria-invalid="false"
                                                 placeholder="How long it gonna take...">

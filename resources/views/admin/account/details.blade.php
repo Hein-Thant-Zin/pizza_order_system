@@ -12,7 +12,7 @@
                     <div class="col-1 offset-2 bg-danger">12</div>
                 </div> --}}
                 <div class="row">
-                    <div class=" col-7 offset-4 ">
+                    <div class=" col-10  offset-1 ">
                         @if (session('UpdateSuccess'))
                             <div class=" col-4 offset-8">
                                 <div class="alert alert-success alert-dismissible fade show text-center" role="alert">

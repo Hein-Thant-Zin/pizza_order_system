@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Product list Page')
+@section('title', 'Product Edit Page')
 
 @section('content')
     <!-- MAIN CONTENT-->
@@ -20,17 +20,18 @@
                                         <h3 class="text-center bold  title-2">Edit your pizza</h3>
                                     </div>
                                     <hr>
-                                    <form action="{{ route('product#update', $pizza->product_id) }}" method="post"
+                                    <form action="{{ route('product#update', $pizza->id) }}" method="post"
                                         novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
+                                                    <input type="hidden" name="pizzaId" value="{{ $pizza->id }}">
                                                     <label class="control-label b mb-1">Image</label>
                                                     <img class="img-thumbnail mb-1"
                                                         src="{{ asset('storage/' . $pizza->image) }}" alt="">
-                                                    <input type="hidden" id='upload' name="productId"
-                                                        value="{{ $pizza->product_id }}">
+                                                    <input type="hidden" id='upload' name="id"
+                                                        value="{{ $pizza->id }}">
                                                     <input id="cc-pament" name="pizzaImage"
                                                         value="{{ old('pizzaImage', $pizza->image) }}" type="file"
                                                         class="form-control @error('pizzaImage') is-invalid @enderror"
@@ -58,6 +59,22 @@
                                                     @enderror
                                                 </div>
 
+                                                <select name="pizzaCategory"
+                                                    class="form-control mt-3 @error('pizzaCategory') is-invalid @enderror"
+                                                    id="">
+                                                    <option value="{{ old('pizzaCategory') }}">Choose your category</option>
+                                                    @foreach ($categories as $c)
+                                                        <option value="{{ $c->id }}"
+                                                            @if ($pizza->category_id == $c->id) selected @endif>
+                                                            {{ $c->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('pizzaCategory')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+
                                                 <div class="form-group">
                                                     <label class="control-label b mb-1">Waiting Time</label>
                                                     <input type="hidden" id='upload' name="pizzaWaitingTime"
@@ -75,6 +92,33 @@
                                                 </div>
 
                                                 <div class="form-group">
+                                                    <label class="control-label b mb-1">View count</label>
+
+                                                    <input id="cc-pament" name="viewCount" disabled
+                                                        value="{{ old('viewCount', $pizza->view_count) }}" type="text"
+                                                        class="form-control @error('viewCount') is-invalid @enderror"
+                                                        aria-required="true" aria-invalid="false" placeholder="Kway..">
+                                                    @error('viewCount')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label b mb-1">Created Date</label>
+
+                                                    <input id="cc-pament" name="createdDate"
+                                                        value="{{ old('createdDate', $pizza->created_at->format('j-F-Y')) }}"
+                                                        type="text"
+                                                        class="form-control @error('createdDate') is-invalid @enderror"
+                                                        aria-required="true" aria-invalid="false" placeholder="Kway..">
+                                                    @error('createdDate')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
                                                     <label class="control-label b mb-1">Price</label>
                                                     <input type="hidden" id='upload' name="pizzaPrice"
                                                         value="{{ $pizza->price }}">
@@ -89,23 +133,28 @@
                                                     @enderror
                                                 </div>
 
+
+
+
                                                 <div class="form-group">
                                                     <label class="control-label b mb-1">Description</label>
                                                     <input type="hidden" id='upload' name="pizzaDescription"
                                                         value="{{ $pizza->description }}">
-                                                    <textarea name="pizzaDescription" id="" class="form-control @error('pizzaDescription') is-invalid  @enderror"
-                                                        cols="30" rows="10" placeholder="Enter your description..">{{ $pizza->description }}</textarea>
+                                                    <textarea name="pizzaDescription" id=""
+                                                        class="form-control @error('pizzaDescription') is-invalid  @enderror" cols="30" rows="10"
+                                                        placeholder="Enter your description..">{{ $pizza->description }}</textarea>
                                                     @error('pizzaDescription')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <button id="payment-button" type="submit"
-                                                class="btn btn-lg btn-info btn-block">
+                                                class="btn btn-dark btn-lg btn-block">
                                                 <span id="payment-button-amount">Update <i
                                                         class="fa-solid fa-circle-right"></i></span>
                                                 {{-- <span id="payment-button-sending" style="display:none;">Sending…</span>

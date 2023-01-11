@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -26,40 +27,11 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories'));
     }
 
-    //edit product
-    public function edit($productId)
-    {
-        $pizza = Product::where('product_id', $productId)->first();
-        return view('admin.product.edit', compact('pizza'));
-    }
-
-    //update product
-    public function updateProduct(Request $request)
-    {
-        // dd($request->productId);
-        // dd($request->all());
-        $this->productValidationCheck($request);
-        $data = $this->requestProductInfo($request);
-        // dd($data);
-        Product::where('product_id', $request->productId)->update($data);
-        return redirect()->route('products#list');
-    }
-
-    //delete
-    public function deleteProduct($productId)
-    {
-        // dd($productId);
-
-        Product::where('product_id', $productId)->delete();
-        return back()->with(['deleteSuccess' => 'Deleted successfully']);
-    }
-
-
     //create product
     public function create(Request $request)
     {
         // dd($request->all());
-        $this->productValidationCheck($request);
+        $this->productValidationCheck($request, 'create');
         $data = $this->requestProductInfo($request);
 
         $fileName = uniqid() . $request->file('pizzaImage')->getClientOriginalName();
@@ -71,25 +43,69 @@ class ProductController extends Controller
         return redirect()->route('products#list');
     }
 
-    //product validation Check
-    private function productValidationCheck($request)
+
+    //edit product
+    public function edit($id)
     {
-        Validator::make($request->all(), [
-            'pizzaName' => 'required|min:3|unique:products,name',
+        $pizza = Product::where('id', $id)->first();
+        $categories = Category::get();
+        return view('admin.product.edit', compact('pizza', 'categories'));
+    }
+
+    //update product
+    public function updateProduct(Request $request)
+    {
+        $this->productValidationCheck($request, 'update');
+        $data = $this->requestProductInfo($request);
+        if ($request->hasFile('pizzaImage')) {
+            $oldImageName = Product::where('id', $request->pizzaId)->first();
+            $oldImageName = $oldImageName->image;
+            if ($oldImageName != null) {
+                Storage::delete('public/' . $oldImageName);
+            }
+            $fileName = uniqid() . $request->file('pizzaImage')->getClientOriginalName();
+            $request->file('pizzaImage')->storeAs('public', $fileName);
+            $data['image'] = $fileName;
+        }
+
+        Product::where('id', $request->pizzaId)->update($data);
+
+
+        return redirect()->route('products#list');
+    }
+
+    //delete
+    public function deleteProduct($id)
+    {
+        // dd($id);
+
+        Product::where('id', $id)->delete();
+        return back()->with(['deleteSuccess' => 'Deleted successfully']);
+    }
+
+
+
+    //product validation Check
+    private function productValidationCheck($request, $action)
+    {
+        $validationRules = [
+            'pizzaName' => 'required|min:3|unique:products,name,' . $request->pizzaId,
             'pizzaCategory' => 'required',
             'pizzaDescription' => 'required|min:10',
             'pizzaPrice' => 'required',
-            'pizzaImage' => 'required|mimes:jpg,png,jpeg,webp|file',
             'pizzaWaitingTime' => 'required'
 
-        ])->validate();
+        ];
+        $validationRules['pizzaImage'] = $action == "create" ? 'required|mimes:jpg,png,jpeg,webp|file' : 'mimes:jpg,png,jpeg,webp|file';
+
+        Validator::make($request->all(), $validationRules)->validate();
     }
     private function requestProductInfo($request)
     {
         return [
             'category_id' => $request->pizzaCategory,
             'name' => $request->pizzaName,
-            'product_id' => $request->productId,
+            'id' => $request->id,
             'description' => $request->pizzaDescription,
             'price' => $request->pizzaPrice,
             'waiting_time' => $request->pizzaWaitingTime,

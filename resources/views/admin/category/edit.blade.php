@@ -40,7 +40,7 @@
 
                                         <div>
                                             <button id="payment-button" type="submit"
-                                                class="btn btn-lg btn-info btn-block">
+                                                class="btn btn-lg btn-dark btn-block">
                                                 <span id="payment-button-amount">Update <i
                                                         class="fa-solid fa-circle-right"></i></span>
                                                 {{-- <span id="payment-button-sending" style="display:none;">Sending…</span>
