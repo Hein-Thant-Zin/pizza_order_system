@@ -29,7 +29,7 @@
                     {{-- alert box for pizzaSuccess --}}
                     @if (session('createSuccess'))
                         <div class=" col-4 offset-8">
-                            <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                                 <strong><i class="fa-solid fa-check"></i> {{ session('createSuccess') }}</strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
@@ -81,7 +81,7 @@
                                     <tr>
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Description</th>
+                                        {{-- <th>Description</th> --}}
                                         <th>Price</th>
                                         <th>Category</th>
                                         <th>View count</th>
@@ -96,13 +96,19 @@
                                                     alt="Cutest girl on the entire planet"></td>
 
                                             <td>{{ $pizza->name }}</td>
-                                            <td>{{ $pizza->description }}</td>
+                                            {{-- <td>{{ $pizza->description }}</td> --}}
                                             <td>{{ $pizza->price }}</td>
                                             <td>{{ $pizza->category_id }}</td>
                                             <td><i class="fa-solid fa-eye me-1"></i>{{ $pizza->view_count }}</td>
                                             <td>{{ $pizza->created_at->format('j-F-Y') }}</td>
                                             <td>
                                                 <div class="table-data-feature">
+                                                    <a href="{{ route('product#details', $pizza->id) }}">
+                                                        <button class="item me-1" data-toggle="tooltip" data-placement="top"
+                                                            title="View">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                    </a>
 
                                                     <a href="{{ route('product#edit', $pizza->id) }}">
                                                         <button class="item me-1" data-toggle="tooltip" data-placement="top"

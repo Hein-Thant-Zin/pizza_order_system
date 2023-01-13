@@ -43,6 +43,15 @@ class ProductController extends Controller
         return redirect()->route('products#list');
     }
 
+    //direct product details page
+    public function details($id)
+    {
+        // dd($id);
+        $pizza = Product::where('id', $id)->first();
+        // dd($pizzas->toArray());
+        return view('admin.product.details', compact('pizza'));
+    }
+
 
     //edit product
     public function edit($id)
@@ -57,9 +66,12 @@ class ProductController extends Controller
     {
         $this->productValidationCheck($request, 'update');
         $data = $this->requestProductInfo($request);
+        // dd($data);
         if ($request->hasFile('pizzaImage')) {
+            # code...
             $oldImageName = Product::where('id', $request->pizzaId)->first();
             $oldImageName = $oldImageName->image;
+            // dd($oldImageName);
             if ($oldImageName != null) {
                 Storage::delete('public/' . $oldImageName);
             }
@@ -67,11 +79,8 @@ class ProductController extends Controller
             $request->file('pizzaImage')->storeAs('public', $fileName);
             $data['image'] = $fileName;
         }
-
         Product::where('id', $request->pizzaId)->update($data);
-
-
-        return redirect()->route('products#list');
+        return redirect()->route('products#list')->with(['createSuccess' => "createSuccess"]);
     }
 
     //delete
@@ -105,11 +114,11 @@ class ProductController extends Controller
         return [
             'category_id' => $request->pizzaCategory,
             'name' => $request->pizzaName,
-            'id' => $request->id,
+            // 'id' => $request->pizzaId,
             'description' => $request->pizzaDescription,
             'price' => $request->pizzaPrice,
             'waiting_time' => $request->pizzaWaitingTime,
-            'image' => $request->pizzaImage
+            // 'image' => $request->pizzaImage
         ];
     }
 }

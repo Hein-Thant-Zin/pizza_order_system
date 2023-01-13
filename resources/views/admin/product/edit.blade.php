@@ -20,18 +20,18 @@
                                         <h3 class="text-center bold  title-2">Edit your pizza</h3>
                                     </div>
                                     <hr>
-                                    <form action="{{ route('product#update', $pizza->id) }}" method="post"
-                                        novalidate="novalidate" enctype="multipart/form-data">
+                                    <form action="{{ route('product#update') }}" method="post" novalidate="novalidate"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <input type="hidden" name="pizzaId" value="{{ $pizza->id }}">
                                                     <label class="control-label b mb-1">Image</label>
+                                                    <input type="hidden" name="pizzaId" value="{{ $pizza->id }}">
                                                     <img class="img-thumbnail mb-1"
                                                         src="{{ asset('storage/' . $pizza->image) }}" alt="">
-                                                    <input type="hidden" id='upload' name="id"
-                                                        value="{{ $pizza->id }}">
+
                                                     <input id="cc-pament" name="pizzaImage"
                                                         value="{{ old('pizzaImage', $pizza->image) }}" type="file"
                                                         class="form-control @error('pizzaImage') is-invalid @enderror"
@@ -132,10 +132,6 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-
-
-
-
                                                 <div class="form-group">
                                                     <label class="control-label b mb-1">Description</label>
                                                     <input type="hidden" id='upload' name="pizzaDescription"
