@@ -63,6 +63,11 @@ class AdminController extends Controller
         return view('admin.account.details');
     }
 
+    public function userActivity()
+    {
+        return view('user-activity');
+    }
+
     //direct edit profile page
     public function edit()
     {

@@ -13,9 +13,13 @@ class ProductController extends Controller
     //direct product list page
     public function list()
     {
-        $pizzas = Product::when(request('key'), function ($query) {
-            $query->where('name', 'like', '%' . request('key') . '%');
-        })->orderBy('created_at', 'desc')->paginate(5);
+        $pizzas = Product::select('products.*', 'categories.name as category_name')
+            ->when(request('key'), function ($query) {
+                $query->where('products.name', 'like', '%' . request('key') . '%');
+            })
+            ->leftJoin('categories', 'products.category_id', 'categories.id')
+            ->orderBy('products.created_at', 'desc')
+            ->paginate(5);
         return view('admin.product.pizzaList', compact('pizzas'));
     }
 

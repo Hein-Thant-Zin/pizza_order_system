@@ -74,6 +74,8 @@
                                 <i class="fa-solid fa-pizza-slice"></i>Products</a>
                         </li>
 
+
+
                     </ul>
                 </nav>
             </div>
@@ -171,6 +173,12 @@
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
                                             </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="{{ route('admin#userActivity') }}">
+                                                        <i class="fa-solid fa-users"></i>Admin list</a>
+                                                </div>
+                                            </div>
 
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
@@ -178,7 +186,6 @@
                                                         <i class="fa-solid fa-key"></i> Change Password</a>
                                                 </div>
                                             </div>
-
                                             <div class="account-dropdown__footer my-3 pt-3">
                                                 <form action="{{ route('logout') }}" method="POST"
                                                     class="d-flex justify-content-center">

@@ -51,14 +51,14 @@
                                         <div class="col-5  offset-2">
                                             <h4 class="my-3"><i class=" fa-solid fa-user-pen me-2"></i>{{ $pizza->name }}
                                             </h4>
-                                            <h4 class=" my-3"><i class=" fa-solid fa-envelope me-2"></i>{{ $pizza->price }}
+                                            <h4 class=" my-3"><i
+                                                    class="fa-solid fa-money-bill me-2"></i>{{ $pizza->price }}
                                             </h4>
                                             <h4 class=" my-3"><i
-                                                    class=" fa-solid fa-envelope me-2"></i>{{ $pizza->waiting_time }}
+                                                    class=" fa-solid fa-clock me-2"></i>{{ $pizza->waiting_time }}
                                             </h4>
 
-                                            <h4 class=" my-3"><i
-                                                    class=" fa-solid fa-phone me-2"></i>{{ $pizza->view_count }}
+                                            <h4 class=" my-3"><i class="fa-solid fa-eye me-2"></i>{{ $pizza->view_count }}
                                             </h4>
                                             <h4 class=" my-3"><i
                                                     class=" fa-solid fa-user-clock me-2"></i>{{ $pizza->created_at }}
