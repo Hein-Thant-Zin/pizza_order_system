@@ -94,6 +94,8 @@
                                             <td class="col-3"><img class="w-50 img-thumbnail shadow-sm"
                                                     src="{{ asset('storage/' . $pizza->image) }}"
                                                     alt="Cutest girl on the entire planet"></td>
+                                            {{-- <td><img src="{{ asset('storage/' . $pizza->image) }}" alt=""
+                                                    srcset=""></td> --}}
 
                                             <td>{{ $pizza->name }}</td>
                                             {{-- <td>{{ $pizza->description }}</td> --}}

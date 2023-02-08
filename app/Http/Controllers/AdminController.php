@@ -63,9 +63,48 @@ class AdminController extends Controller
         return view('admin.account.details');
     }
 
-    public function userActivity()
+    public function list()
     {
-        return view('user-activity');
+        $admin = User::when(request('key'), function ($query) {
+            $query->orWhere('name', 'like', '%' . request('key') . '%')
+                ->orWhere('email', 'like', '%' . request('key') . '%')
+                ->orWhere('phone', 'like', '%' . request('key') . '%')
+                ->orWhere('address', 'like', '%' . request('key') . '%')
+                ->orWhere('gender', 'like', '%' . request('key') . '%');
+        })
+            ->where('role', 'admin')->paginate(3);
+        $admin->appends(request()->all());
+        // dd($admin);
+        return view('admin.account.list', compact('admin'));
+    }
+
+    //change Role
+    public function changeRole($id)
+    {
+        $account = User::where('id', $id)->first();
+        return view('admin.account.changeRole', compact('account'));
+    }
+
+    //change
+    public function change($id, Request $request)
+    {
+        $data = $this->requestUserData($request);
+        User::where('id', $id)->update($data);
+        return redirect()->route('admin#list');
+    }
+    //request user data
+    private function requestUserData($request)
+    {
+        return [
+            'role' => $request->role
+        ];
+    }
+
+    //delete admin account
+    public function delete($id)
+    {
+        User::where('id', $id)->delete();
+        return back()->with(['deleteSuccess' => 'Account deleted..']);
     }
 
     //direct edit profile page

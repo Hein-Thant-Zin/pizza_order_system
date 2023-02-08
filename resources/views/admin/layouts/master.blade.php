@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.46.0/full.css"
         integrity="sha512-/n1ZBft/q8FoTO0MFeZ1wv1KF5kdJtD6F8VVH4rbRkQSKrAYZlAKj+64AR8FcDfvM5p9hz9X5e6PHcrvBFqKSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
-    <link rel="icon" class="img-thumbnail" href="{{ asset('admin/images/Pizza.jpg') }}">
+    <link rel="icon" class="img-thumbnail" href="{{ asset('admin/images/piza_logo.ico') }}">
 </head>
 
 <body class="animsition">
@@ -137,10 +137,15 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            @if (Auth::user()->image == null)
-                                                <img src="{{ asset('admin/images/default_user.png') }}" />
+                                            @if (Auth::user()->image != null)
+                                                <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                                                    class='img-thumbnail shadow-sm' />
+                                            @elseif (Auth::user()->gender == 'female')
+                                                <img src="{{ asset('admin/images/default_female.png') }}"
+                                                    alt="" srcset="">
                                             @else
-                                                <img src="{{ asset('storage/' . Auth::user()->image) }}" />
+                                                <img src="{{ asset('admin/images/default_user.png') }}"
+                                                    alt="" srcset="">
                                             @endif
 
 
@@ -152,11 +157,15 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="{{ route('admin#details') }}">
-                                                        @if (Auth::user()->image == null)
-                                                            <img src="{{ asset('admin/images/default_user.png') }}" />
+                                                        @if (Auth::user()->image != null)
+                                                            <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                                                                class='img-thumbnail shadow-sm' />
+                                                        @elseif (Auth::user()->gender == 'female')
+                                                            <img src="{{ asset('admin/images/default_female.png') }}"
+                                                                alt="" srcset="">
                                                         @else
-                                                            <img
-                                                                src="{{ asset('storage/' . Auth::user()->image) }}" />
+                                                            <img src="{{ asset('admin/images/default_user.png') }}"
+                                                                alt="" srcset="">
                                                         @endif
                                                     </a>
                                                 </div>
@@ -175,7 +184,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="{{ route('admin#userActivity') }}">
+                                                    <a href="{{ route('admin#list') }}">
                                                         <i class="fa-solid fa-users"></i>Admin list</a>
                                                 </div>
                                             </div>

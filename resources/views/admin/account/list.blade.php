@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Category list Page')
+@section('title', 'Admin list Page')
 
 @section('content')
     <!-- MAIN CONTENT-->
@@ -15,10 +15,10 @@
                             </div>
                         </div>
                         <div class="table-data__tool-right">
-                            <a href="{{ route('category#createPage') }}">
+                            <a href="{{ route('auth#registerPage') }}">
                                 <button type="submit"
                                     class="btn  btn-active au-btn au-btn-icon au-btn--green au-btn--small" <i
-                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add category
+                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add
                                 </button>
                             </a>
                             <button class="au-btn au-btn-icon btn btn btn-active au-btn--green au-btn--small">
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class=" col-3 offset-6">
-                            <form action="{{ route('category#list') }}" method="GET">
+                            <form action="{{ route('admin#list') }}" method="GET">
                                 @csrf
                                 <div class="d-flex">
                                     <input type="text" name="key" placeholder="Search.." value="{{ request('key') }}"
@@ -69,68 +69,90 @@
                     </div>
                     <div class="mt-2 ">
                         <div class="float-right ml-3 text-center col-1 offset-10 bg-white shadow-sm p-2">
-                            <h3><i class="fa-solid fa-database"></i> {{ $categories->total() }}</h3>
+                            <h3> {{ $admin->total() }} <i class="fa-solid fa-database"></i> </h3>
                         </div>
                     </div>
-                    @if (count($categories) != 0)
-                        <div class="table-responsive table-responsive-data2 text-center">
-                            <table class="table table-data2">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Category</th>
-                                        <th>Created Date</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($categories as $category)
-                                        <tr class="tr-shadow">
-                                            <td>{{ $category->id }}</td>
-                                            <td class="col-6">{{ $category->name }}</td>
-                                            <td>{{ $category->created_at->format('j-F-Y') }}</td>
-                                            <td>
-                                                <div class="table-data-feature">
 
-                                                    <a href="{{ route('category#edit', $category->id) }}">
-                                                        <button class="item me-1" data-toggle="tooltip" data-placement="top"
-                                                            title="Edit">
-                                                            <i class="zmdi zmdi-edit "></i>
+                    <div class="table-responsive table-responsive-data2 text-center">
+                        <table class="table table-data2">
+                            <thead>
+                                <tr>
+                                    <th>IMAGE</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>phone</th>
+                                    <th>address</th>
+                                    <th>gender</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($admin as $a)
+                                    <tr class="tr-shadow">
+                                        <td class="col-1">
+                                            @if ($a->image != null)
+                                                <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                                                    class='img-thumbnail shadow-sm' />
+                                            @elseif ($a->gender == 'female')
+                                                <img src="{{ asset('admin/images/default_female.png') }}" alt=""
+                                                    srcset="">
+                                            @else
+                                                <img src="{{ asset('admin/images/default_user.png') }}" alt=""
+                                                    srcset="">
+                                            @endif
+                                        </td>
+                                        <td>{{ $a->id }}({{ Auth::user()->id }})</td>
+                                        <td>{{ $a->email }}</td>
+                                        <td>{{ $a->phone }}</td>
+                                        <td>{{ $a->address }}</td>
+                                        <td>{{ $a->gender }}</td>
+                                        <td>
+                                            {{-- <a
+                                                href=" @if (Auth::user()->id == $a->id) @else {{ route('admin#delete') }} @endif ">
+                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Delete">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </a> --}}
+                                            <div class="table-data-feature">
+                                                @if (Auth::user()->id == $a->id)
+                                                @else
+                                                    <a href="{{ route('admin#changeRole', $a->id) }}">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Change role">
+                                                            <i class="fas fa-edit"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{ route('category#delete', $category->id) }}">
+                                                    <a href="{{ route('admin#delete', $a->id) }}">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
+                                                            <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </a>
-                                                    {{-- <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="More">
-                                                    <i class="zmdi zmdi-more"></i>
-                                                </button> --}}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
+                                                @endif
+                                            </div>
+                                        </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                @endforeach
 
-                        </div>
-                        <div class="mt-3">
-                            {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                            {{-- {{ $categories->links() }} --}}
-                            {{ $categories->appends(request()->query())->links() }}
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="mt-3">
+                        {{-- {{ for remaining the searching value after changing the paginate }} --}}
+                        {{ $admin->links() }}
+                        {{-- {{ $categories->appends(request()->query())->links() }}
                         </div>
                     @else
                         <h2 class="mt-5 text-center align">There is no Category</h2>
+                    @endif --}}
+                        <!-- END DATA TABLE -->
 
-                    @endif
-                    <!-- END DATA TABLE -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END MAIN CONTENT-->
-@endsection
+        <!-- END MAIN CONTENT-->
+    @endsection

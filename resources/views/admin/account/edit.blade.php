@@ -26,12 +26,15 @@
                                         @csrf
                                         <div class="row">
                                             <div class="col-4 offset-1">
-                                                @if (Auth::user()->image == null)
-                                                    <img src="{{ asset('admin/images/default_user.png') }}"
-                                                        class=" img-thumbnail shadow-sm" />
+                                                @if (Auth::user()->image != null)
+                                                    <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                                                        class='img-thumbnail shadow-sm' />
+                                                @elseif (Auth::user()->gender == 'female')
+                                                    <img src="{{ asset('admin/images/default_female.png') }}" alt=""
+                                                        srcset="">
                                                 @else
-                                                    <img
-                                                        src="{{ asset('storage/' . Auth::user()->image) }}"class='img-thumbnail shadow-sm' />
+                                                    <img src="{{ asset('admin/images/default_user.png') }}" alt=""
+                                                        srcset="">
                                                 @endif
                                                 <div class="">
                                                     <input type="file"
