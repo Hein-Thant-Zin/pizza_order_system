@@ -71,21 +71,17 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('changeRole/{id}', [AdminController::class, 'changeRole'])->name('admin#changeRole');
             Route::post('change/role/{id}', [AdminController::class, 'change'])->name('admin#change');
-        });
 
-
-
-
-
-        //products
-        Route::prefix('products')->group(function () {
-            Route::get('list', [ProductController::class, 'list'])->name('products#list');
-            Route::get('createPage', [ProductController::class, 'createPage'])->name('product#createPage');
-            Route::post('create', [ProductController::class, 'create'])->name('product#create');
-            Route::get('deatils/{id}', [ProductController::class, 'details'])->name('product#details');
-            Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product#edit');
-            Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
-            Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
+            //products
+            Route::prefix('products')->group(function () {
+                Route::get('list', [ProductController::class, 'list'])->name('products#list');
+                Route::get('createPage', [ProductController::class, 'createPage'])->name('product#createPage');
+                Route::post('create', [ProductController::class, 'create'])->name('product#create');
+                Route::get('deatils/{id}', [ProductController::class, 'details'])->name('product#details');
+                Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product#edit');
+                Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
+                Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
+            });
         });
     });
 
@@ -95,11 +91,14 @@ Route::middleware(['auth'])->group(function () {
     //user
     //home
     Route::group(['prefix' => 'user', 'middleware' => 'user_auth'], function () {
-        // Route::get('home', function () {
-        //     return view('user.home');
-        // })->name('user#home');
         Route::get('/homePage', [UserController::class, 'home'])->name('user#home');
-        // Route::get('/homePage', UserController::class, 'home')->name('user#home');
+        Route::prefix('password')->group(function () {
+            Route::get('change', [UserController::class, 'changePasswordPage'])->name('user#changePasswordPage');
+            Route::get('details', [UserController::class, 'details'])->name('user#details');
+            Route::get('edit', [UserController::class, 'edit'])->name('user#edit');
+            Route::post('update/{id}', [UserController::class, 'update'])->name('user#update');
+            Route::post('changePassword', [UserController::class, 'changePassword'])->name('user#changePassword');
+        });
     });
 });
 
