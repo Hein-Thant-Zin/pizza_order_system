@@ -60,61 +60,174 @@
 
                             <div class="ml-2">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Popularity</a>
-                                        <a class="dropdown-item" href="#">Best Rating</a>
-                                    </div>
+                                    <select name="sorting" id="sortingOption" class="form-control">
+                                        <option value="">Choose</option>
+                                        <option value="asc">Ascending</option>
+                                        <option value="desc">Descending</option>
+                                    </select>
+
                                 </div>
-                                <div class="btn-group ml-2">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Showing</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">10</a>
-                                        <a class="dropdown-item" href="#">20</a>
-                                        <a class="dropdown-item" href="#">30</a>
-                                    </div>
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="dataList">
+                        @foreach ($pizza as $p)
+                            <div class="col-lg-4 bg-light shadow-current col-md-6 mb-5 col-sm-6 pb-1">
+                                <div id="my form" class="product-item mb-4">
+                                    <div class="product-img  position-relative overflow-hidden">
+                                        <img style="height: 270px;" class="img-fluid w-100"
+                                            src="{{ asset('storage/' . $p->image) }}">
+                                        <div class="product-action">
+                                            <a class="btn btn-outline-dark btn-square" href=""><i
+                                                    class="fa fa-shopping-cart"></i></a>
+                                            <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
+                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                        </div>
 
-                    @foreach ($pizza as $p)
-                        <div class="col-lg-4 bg-light shadow-current col-md-6 mb-5 col-sm-6 pb-1">
-                            <div class="product-item mb-4">
-                                <div class="product-img  position-relative overflow-hidden">
-                                    <img style="height: 270px;" class="img-fluid w-100"
-                                        src="{{ asset('storage/' . $p->image) }}">
-                                    <div class="product-action">
-                                        <a class="btn btn-outline-dark btn-square" href=""><i
-                                                class="fa fa-shopping-cart"></i></a>
-                                        <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
-                                            href=""><i class="fa-solid fa-circle-info"></i></a>
                                     </div>
+                                </div>
+                                <div class="text-center ">
+                                    <a class="h6 text-decoration-none text-truncate" href="">{{ $p->name }}</a>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5>{{ $p->price }}</h5>
+                                        <h6 class="text-muted ml-2"><del class="">65000 Kyats</del></h6>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
 
-                                </div>
-                            </div>
-                            <div class="text-center ">
-                                <a class="h6 text-decoration-none text-truncate" href="">{{ $p->name }}</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>{{ $p->price }}</h5>
-                                    <h6 class="text-muted ml-2"><del class="">65000 Kyats</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
                 </div>
             </div>
             <!-- Shop Product End -->
         </div>
     </div>
+@endsection
+
+@section('scriptSource')
+    <script>
+        $(document).ready(function() {
+            // $.ajax({
+            //     type: 'get',
+            //     url: 'http://127.0.0.1:8000/user/ajax/pizza/list',
+            //     dataType: 'json',
+            //     success: function(response) {
+            //         console.log(response)
+            //     }
+            // })
+
+            $('#sortingOption').change(function() {
+                $eventOption = $('#sortingOption').val();
+                // console.log($eventOption);
+                if ($eventOption == 'asc') {
+                    $.ajax({
+                        type: 'get',
+                        url: 'http://127.0.0.1:8000/user/ajax/pizza/list',
+                        data: {
+                            'status': 'asc'
+                        },
+                        dataType: 'json',
+
+                        success: function(response) {
+                            // console.log(response[0].name)
+                            $list = '';
+                            for ($i = 0; $i < response.length; $i++) {
+                                // console.log(`${response[$i].name}`);
+                                $list += `
+                                <div class="col-lg-4 bg-light shadow-current col-md-6 mb-5 col-sm-6 pb-1">
+                                <div id="my form" class="product-item mb-4">
+                                    <div class="product-img  position-relative overflow-hidden">
+                                        <img style="height: 270px;" class="img-fluid w-100"
+                                            src="{{ asset('storage/${response[$i].image}') }}">
+                                        <div class="product-action">
+                                            <a class="btn btn-outline-dark btn-square" href=""><i
+                                                    class="fa fa-shopping-cart"></i></a>
+                                            <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
+                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="text-center ">
+                                    <a class="h6 text-decoration-none text-truncate" href="">${response[$i].name}</a>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5>${response[$i].price}</h5>
+                                        <h6 class="text-muted ml-2"><del class="">65000 Kyats</del></h6>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                    </div>
+                                </div>
+                            </div>`
+                            }
+                            $('#dataList').html($list);
+                        }
+                    })
+
+                } else if ($eventOption == 'desc') {
+                    $.ajax({
+                        type: 'get',
+                        url: 'http://127.0.0.1:8000/user/ajax/pizza/list',
+                        data: {
+                            'status': 'desc'
+                        },
+                        dataType: 'json',
+
+                        success: function(response) {
+                            // console.log(response[0].name)
+                            $list = '';
+                            for ($i = 0; $i < response.length; $i++) {
+                                // console.log(`${response[$i].name}`);
+                                $list += `
+                                <div class="col-lg-4 bg-light shadow-current col-md-6 mb-5 col-sm-6 pb-1">
+                                <div id="my form" class="product-item mb-4">
+                                    <div class="product-img  position-relative overflow-hidden">
+                                        <img style="height: 270px;" class="img-fluid w-100"
+                                            src="{{ asset('storage/${response[$i].image}') }}">
+                                        <div class="product-action">
+                                            <a class="btn btn-outline-dark btn-square" href=""><i
+                                                    class="fa fa-shopping-cart"></i></a>
+                                            <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
+                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="text-center ">
+                                    <a class="h6 text-decoration-none text-truncate" href="">${response[$i].name}</a>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5>${response[$i].price}</h5>
+                                        <h6 class="text-muted ml-2"><del class="">65000 Kyats</del></h6>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                    </div>
+                                </div>
+                            </div>`
+                            }
+                            $('#dataList').html($list);
+                        }
+                    })
+
+                }
+            })
+        })
+    </script>
 @endsection

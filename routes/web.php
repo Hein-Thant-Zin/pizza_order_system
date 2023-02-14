@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\user\UserController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,10 +96,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/homePage', [UserController::class, 'home'])->name('user#home');
         Route::prefix('password')->group(function () {
             Route::get('change', [UserController::class, 'changePasswordPage'])->name('user#changePasswordPage');
+
+            Route::post('changePassword', [UserController::class, 'changePassword'])->name('user#changePassword');
+        });
+        Route::prefix('account')->group(function () {
             Route::get('details', [UserController::class, 'details'])->name('user#details');
             Route::get('edit', [UserController::class, 'edit'])->name('user#edit');
             Route::post('update/{id}', [UserController::class, 'update'])->name('user#update');
-            Route::post('changePassword', [UserController::class, 'changePassword'])->name('user#changePassword');
+        });
+
+        Route::prefix('ajax')->group(function () {
+            Route::get('pizza/list', [AjaxController::class, 'pizzaList'])->name('ajax#pizzaList');
         });
     });
 });

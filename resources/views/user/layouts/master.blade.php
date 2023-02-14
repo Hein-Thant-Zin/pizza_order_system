@@ -239,6 +239,9 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('user/js/main.js') }}"></script>
+    {{-- jquery cdn --}}
+
 </body>
+@yield('scriptSource')
 
 </html>
