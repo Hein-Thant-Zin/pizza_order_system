@@ -13,17 +13,13 @@
                         <div
                             class="bg-dark text-white rounded  py-3 px-3 d-flex align-items-center justify-content-between mb-3">
                             {{-- <input type="checkbox" class="custom-control-input" checked id="price-all"> --}}
-                            <label class="">Categories</label>
+                            <a href="{{ route('user#home') }}"><label class="">Categories</label></a>
                             <span class="badge border font-weight-normal">{{ count($category) }}</span>
                         </div>
 
                         @foreach ($category as $c)
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                {{-- <input type="checkbox" class="custom-control-input" id="price-1"> --}}
-                                <label class="w-100 shadow-sm py-2" for="price-1">{{ $c->name }}</label>
-                                {{-- <span class="badge border font-weight-normal">150</span> --}}
-                            </div>
+                            <a class="" href="{{ route('user#filter', $c->id) }}"><label
+                                    class="w-100 pl-2 shadow-sm py-2" for="price-1">{{ $c->name }}</label></a>
                         @endforeach
                         <div class="px-3r">
                             <div
@@ -39,6 +35,43 @@
 
 
             <!-- Shop Product Start -->
+            {{-- <div class="row" id="dataList">
+                @foreach ($pizza as $p)
+                    <div class="col-lg-9 col-md-8">
+                        <div class="row pb-3">
+                            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                                <div class="product-item bg-light mb-4">
+                                    <div class="product-img position-relative overflow-hidden">
+                                        <img class="img-fluid w-100" src="{{ asset('storage/' . $p->image) }}"
+                                            alt="">
+                                        <div class="product-action">
+                                            <a class="btn btn-outline-dark btn-square" href=""><i
+                                                    class="fa fa-shopping-cart"></i></a>
+                                            <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
+                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center py-4">
+                                        <a class="h6 text-decoration-none text-truncate"
+                                            href="">{{ $p->name }}</a>
+                                        <div class="d-flex align-items-center justify-content-center mt-2">
+                                            <h5>{{ $p->price }}</h5>
+                                            <h6 class="text-muted ml-2"><del>25000</del></h6>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center mb-1">
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div> --}}
             <div class="col-lg-9 col-md-8">
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
@@ -65,27 +98,26 @@
                                         <option value="asc">Ascending</option>
                                         <option value="desc">Descending</option>
                                     </select>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="dataList">
+
+                    <div class="row  mx-2 " id="dataList">
+
                         @foreach ($pizza as $p)
                             <div class="col-lg-4 bg-light shadow-current col-md-6 mb-5 col-sm-6 pb-1">
-                                <div id="my form" class="product-item mb-4">
+                                <div id="my form" class="product-item mx-2 mb-4">
                                     <div class="product-img  position-relative overflow-hidden">
-                                        <img style="height: 270px;" class="img-fluid w-100"
+                                        <img style="height: 270px;" class="img-fluid "
                                             src="{{ asset('storage/' . $p->image) }}">
                                         <div class="product-action">
                                             <a class="btn btn-outline-dark btn-square" href=""><i
                                                     class="fa fa-shopping-cart"></i></a>
                                             <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
-                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                href="{{ route('pizza#details', $p->id) }}"><i
+                                                    class="fa-solid fa-circle-info"></i></a>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="text-center ">
@@ -152,7 +184,7 @@
                                             <a class="btn btn-outline-dark btn-square" href=""><i
                                                     class="fa fa-shopping-cart"></i></a>
                                             <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
-                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                href="{{ route('pizza#details', $p->id) }}"><i class="fa-solid fa-circle-info"></i></a>
                                         </div>
 
                                     </div>
@@ -201,7 +233,7 @@
                                             <a class="btn btn-outline-dark btn-square" href=""><i
                                                     class="fa fa-shopping-cart"></i></a>
                                             <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
-                                                href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                href="{{ route('pizza#details', $p->id) }}"><i class="fa-solid fa-circle-info"></i></a>
                                         </div>
 
                                     </div>

@@ -34,7 +34,23 @@ class UserController extends Controller
     {
         return view('user.account.edit');
     }
+    //filter
+    public function filter($categoryId)
+    {
+        $pizza = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
+        $category = Category::get();
+        return view('user.main.home', compact('pizza', 'category'));
+        // dd($categoryId);
+    }
 
+    //direct pizza page
+    public function pizzaDetails($pizzaId)
+    {
+        // dd($pizzaId);
+        $pizza = Product::where('id', $pizzaId)->first();
+        $pizzaList = Product::get();
+        return view('user.main.details', compact('pizza', 'pizzaList'));
+    }
     //direct change password page
     public function changePasswordPage()
     {
