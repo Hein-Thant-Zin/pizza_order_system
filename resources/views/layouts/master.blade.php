@@ -37,7 +37,7 @@
 
 </head>
 
-<body class="animsition">
+<body class="animation">
     <div class="page-wrapper">
         <div class="page-content--bge5">
             <div class="container">
@@ -45,7 +45,7 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="admin/images/icon/logo.png" alt="CoolAdmin">
+                                <img src="admin/images/icon/logo.png" alt="">
                             </a>
                         </div>
                         @yield('content')
@@ -72,7 +72,9 @@
     <script src="{{ asset('admin/vendor/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('admin/vendor/chartjs/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/select2/select2.min.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Main JS-->
     <script src="{{ asset('admin/js/main.js') }}"></script>
 

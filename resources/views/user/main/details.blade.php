@@ -28,15 +28,19 @@
                                 <button class="btn btn-primary btn-minus">
                                     <i class="fa fa-minus"></i>
                                 </button>
+
                             </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+
+                            <input type="text" class="form-control bg-secondary border-0 text-center" id="orderCount"
+                                value="1">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                        <button type="button" id="addCartBtn" class="btn btn-primary px-3"><i
+                                class="fa fa-shopping-cart mr-1"></i> Add To
                             Cart</button>
                     </div>
                     <div class="d-flex pt-2">
@@ -109,7 +113,34 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="userId" value="{{ Auth::user()->id }}">
+        <input type="hidden" id="pizzaId" value="{{ $pizza->id }}">
     </div>
 
     <!-- Products End -->
+@endsection
+@section('scriptSource')
+    <script>
+        $(document).ready(function() {
+            $('#addCartBtn').click(function() {
+                $source = {
+                    'userId': $('#userId').val(),
+                    'pizzaId': $('#pizzaId').val(),
+                    'count': $('#orderCount').val(),
+                };
+                // console.log($source);
+                $.ajax({
+                    type: 'get',
+                    url: 'http://127.0.0.1:8000/user/ajax/addToCart',
+                    data: $source,
+                    dataType: 'json',
+                    success: function(response) {
+
+                    }
+                })
+
+            })
+
+        })
+    </script>
 @endsection
