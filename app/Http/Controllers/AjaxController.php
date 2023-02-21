@@ -31,6 +31,7 @@ class AjaxController extends Controller
         return redirect()->route('user#home')->with(['orderSuccess' => 'orderSuccess']);
         // return view('user.main.home');
     }
+
     //get order data
     private function getOrderData($request)
     {

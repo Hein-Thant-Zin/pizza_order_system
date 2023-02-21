@@ -95,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user', 'middleware' => 'user_auth'], function () {
         Route::get('/homePage', [UserController::class, 'home'])->name('user#home');
         Route::get('/filter/{id}', [UserController::class, 'filter'])->name('user#filter');
+        Route::get('cart', [UserController::class, 'cart'])->name('user#cart');
         Route::prefix('pizza')->group(function () {
             Route::get('details/{id}', [UserController::class, 'pizzaDetails'])->name('pizza#details');
         });
