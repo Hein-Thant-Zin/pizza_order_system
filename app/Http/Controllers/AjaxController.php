@@ -27,9 +27,12 @@ class AjaxController extends Controller
         // logger($request->all());
         $data = $this->getOrderData($request);
         // Logger($data);
+
         Cart::create($data);
-        return redirect()->route('user#home')->with(['orderSuccess' => 'orderSuccess']);
-        // return view('user.main.home');
+        return [
+            'status' => 'success',
+            'message' => 'added..'
+        ];
     }
 
     //get order data

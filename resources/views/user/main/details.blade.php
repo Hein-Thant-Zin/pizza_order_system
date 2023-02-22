@@ -2,6 +2,11 @@
 @section('content')
     <!-- Shop Detail Start -->
     <div class="container-fluid pb-5">
+        @if (session('success'))
+            <div class="invalid-feedback">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <div class="pl-5 mb-3"> <i class="fa-solid fa-arrow-left text-dark mb-3" onclick="history.back()"></i> back</div>
         <div class="row px-xl-5">
@@ -65,7 +70,8 @@
         </div>
 
     </div>
-
+    <input type="hidden" id="userId" value="{{ Auth::user()->id }}">
+    <input type="hidden" id="pizzaId" value="{{ $pizza->id }}">
     <!-- Shop Detail End -->
 
 
@@ -77,10 +83,10 @@
         <div class="row px-xl-5">
             <div class="col">
                 <div class="owl-carousel related-carousel">
-                    @foreach ($pizzaList as $pizza)
+                    @foreach ($pizzaList as $piza)
                         <div class="product-item bg-light">
                             <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="{{ asset('storage/' . $pizza->image) }}" alt="">
+                                <img class="img-fluid w-100" src="{{ asset('storage/' . $piza->image) }}" alt="">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i
                                             class="fa fa-shopping-cart"></i></a>
@@ -93,9 +99,9 @@
                                 </div>
                             </div>
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">{{ $pizza->name }}</a>
+                                <a class="h6 text-decoration-none text-truncate" href="">{{ $piza->name }}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>{{ $pizza->price }}</h5>
+                                    <h5>{{ $piza->price }}</h5>
                                     <h6 class="text-muted ml-2"><del>60000</del></h6>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
@@ -113,8 +119,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="userId" value="{{ Auth::user()->id }}">
-        <input type="hidden" id="pizzaId" value="{{ $pizza->id }}">
+
     </div>
 
     <!-- Products End -->
@@ -135,7 +140,9 @@
                     data: $source,
                     dataType: 'json',
                     success: function(response) {
-
+                        if (response.status == 'success') {
+                            window.location.href = 'http://127.0.0.1:8000/user/homePage';
+                        }
                     }
                 })
 

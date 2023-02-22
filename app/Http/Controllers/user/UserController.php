@@ -26,9 +26,15 @@ class UserController extends Controller
     }
 
     //direct cart page
-    public function cart()
+    public function cartList()
     {
-        return view('user.main.cart');
+        $cartList = Cart::select('carts.*', 'products.name as pizza_name', 'products.price as pizza_price', 'products.image as image')
+            ->leftJoin('products', 'products.id', 'carts.product_id')
+            ->where('carts.user_id', Auth::user()->id)
+            ->get();
+        // dd($cartList->toArray());
+
+        return view('user.main.cart', compact('cartList'));
     }
 
     //direct user details page
@@ -55,8 +61,11 @@ class UserController extends Controller
     public function pizzaDetails($pizzaId)
     {
         // dd($pizzaId);
+
         $pizza = Product::where('id', $pizzaId)->first();
+        // dd($pizza->toArray());
         $pizzaList = Product::get();
+        // dd($pizzaList->toArray());
         return view('user.main.details', compact('pizza', 'pizzaList'));
     }
     //direct change password page
@@ -93,6 +102,7 @@ class UserController extends Controller
             'id',
             Auth::user()->id
         )->update($data);
+
         return redirect()->route('user#details')->with(['UpdateSuccess' => 'User Account Updated..']);
     }
 
@@ -100,7 +110,7 @@ class UserController extends Controller
     private function getUserData($request)
     {
         return [
-            'name' => $request->name,
+            // 'name' => $request->name,
             'name' => $request->name,
             'email' => $request->email,
             'gender' => $request->gender,

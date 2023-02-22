@@ -78,7 +78,7 @@
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div>
 
-                                <a href="{{ route('user#cart') }}">
+                                <a href="{{ route('cart#cartList') }}">
                                     <button type="button" class="btn  position-relative">
                                         <i class="fa-solid fa-cart-plus"></i>
                                         <span

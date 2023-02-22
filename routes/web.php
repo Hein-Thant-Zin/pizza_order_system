@@ -95,13 +95,16 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user', 'middleware' => 'user_auth'], function () {
         Route::get('/homePage', [UserController::class, 'home'])->name('user#home');
         Route::get('/filter/{id}', [UserController::class, 'filter'])->name('user#filter');
-        Route::get('cart', [UserController::class, 'cart'])->name('user#cart');
+        Route::prefix('cart')->group(function () {
+            Route::get('/list', [UserController::class, 'cartList'])->name('cart#cartList');
+        });
+
         Route::prefix('pizza')->group(function () {
             Route::get('details/{id}', [UserController::class, 'pizzaDetails'])->name('pizza#details');
         });
+
         Route::prefix('password')->group(function () {
             Route::get('change', [UserController::class, 'changePasswordPage'])->name('user#changePasswordPage');
-
             Route::post('changePassword', [UserController::class, 'changePassword'])->name('user#changePassword');
         });
         Route::prefix('account')->group(function () {
