@@ -33,8 +33,11 @@ class UserController extends Controller
             ->where('carts.user_id', Auth::user()->id)
             ->get();
         // dd($cartList->toArray());
-
-        return view('user.main.cart', compact('cartList'));
+        $totalPrice = 0;
+        foreach ($cartList as $c) {
+            $totalPrice += $c->pizza_price * $c->qty;
+        }
+        return view('user.main.cart', compact('cartList', 'totalPrice'));
     }
 
     //direct user details page
