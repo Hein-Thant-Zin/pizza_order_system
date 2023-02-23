@@ -20,9 +20,10 @@
                     <tbody class="align-middle">
                         @foreach ($cartList as $c)
                             <tr>
+                                <input type="hidden" value="{{ $c->pizza_price }}" id="price">
                                 <td class="align-middle pl-5"><img class="img-thumbnail" style="height: 100px"
                                         src="{{ asset('storage/' . $c->image) }}" alt="" srcset=""></td>
-                                <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">
+                                <td class="align-middle">
                                     {{ $c->pizza_name }}</td>
                                 <td class="align-middle">{{ $c->pizza_price }} Ks</td>
                                 <td class="align-middle">
@@ -32,7 +33,7 @@
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </div>
-                                        <input type="text" value="{{ $c->qty }}"
+                                        <input type="text" id="qty" value="{{ $c->qty }}"
                                             class="form-control form-control-sm bg-secondary border-0 text-center>                                                                                                                                                                      <div class="input-group-btn">
                                         <button class="btn btn-sm btn-primary btn-plus">
                                             <i class="fa fa-plus"></i>
@@ -41,12 +42,12 @@
 
 
                                 </td>
-                                <td class="align-middle">{{ $c->pizza_price * $c->qty }} Ks</td>
+
+                                <td id="total" class="align-middle">{{ $c->pizza_price * $c->qty }} Ks</td>
                                 <td class="align-middle"><button class="btn btn-sm btn-danger"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>
@@ -77,4 +78,32 @@
         </div>
     </div>
     <!-- Cart End -->
+@endsection
+
+@section('scriptSource')
+    <script>
+        $(document).ready(function() {
+            $('.fa-plus').click(function() {
+                $parentNode = $(this).parents('tr');
+                $price = $parentNode.find('#price').val();
+
+                $qty = Number($parentNode.find('#qty').val()) + 1;
+                //or
+                //$qty = ($parentNode.find('#qty').val()*1)+1;
+                // $qty = $parentNode.find('#qty').val();
+                $total = $price * $qty;
+                $parentNode.find('#total').html($total + ' Ks');
+                // console.log($total);
+                // console.log($total);
+            })
+
+
+            $('.fa-minus').mouseleave(function() {
+                $parentNode = $(this).parents('tr');
+                $price = $parentNode.find('#price').val();
+                $qty = $parentNode.find('#qty').val();
+                console.log($price * $qty);
+            })
+        })
+    </script>
 @endsection
