@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
+                <table id="dataTable" class="table table-light table-borderless table-hover text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
                             <th>Image</th>
@@ -20,12 +20,12 @@
                     <tbody class="align-middle">
                         @foreach ($cartList as $c)
                             <tr>
-                                <input type="hidden" value="{{ $c->pizza_price }}" id="price">
+                                {{-- <input type="hidden" value="{{ $c->pizza_price }}" id="price"> --}}
                                 <td class="align-middle pl-5"><img class="img-thumbnail" style="height: 100px"
                                         src="{{ asset('storage/' . $c->image) }}" alt="" srcset=""></td>
                                 <td class="align-middle">
                                     {{ $c->pizza_name }}</td>
-                                <td class="align-middle">{{ $c->pizza_price }} Ks</td>
+                                <td id="price" class="align-middle">{{ $c->pizza_price }} Ks</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
                                         <div class="input-group-btn">
@@ -39,12 +39,9 @@
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
-
-
                                 </td>
-
                                 <td id="total" class="align-middle">{{ $c->pizza_price * $c->qty }} Ks</td>
-                                <td class="align-middle"><button class="btn btn-sm btn-danger"><i
+                                <td id="" class="align-middle"><button class="btn btnRemove btn-sm btn-danger"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>
                         @endforeach
@@ -58,7 +55,7 @@
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6>{{ $totalPrice }} Ks</h6>
+                            <h6 id="subTotalPrice">{{ $totalPrice }} Ks</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
@@ -68,7 +65,7 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>{{ $totalPrice + 3000 }} Ks</h5>
+                            <h5 class="finalPrice">{{ $totalPrice + 3000 }} Ks</h5>
                         </div>
                         <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To
                             Checkout</button>
@@ -81,29 +78,5 @@
 @endsection
 
 @section('scriptSource')
-    <script>
-        $(document).ready(function() {
-            $('.fa-plus').click(function() {
-                $parentNode = $(this).parents('tr');
-                $price = $parentNode.find('#price').val();
-
-                $qty = Number($parentNode.find('#qty').val()) + 1;
-                //or
-                //$qty = ($parentNode.find('#qty').val()*1)+1;
-                // $qty = $parentNode.find('#qty').val();
-                $total = $price * $qty;
-                $parentNode.find('#total').html($total + ' Ks');
-                // console.log($total);
-                // console.log($total);
-            })
-
-
-            $('.fa-minus').mouseleave(function() {
-                $parentNode = $(this).parents('tr');
-                $price = $parentNode.find('#price').val();
-                $qty = $parentNode.find('#qty').val();
-                console.log($price * $qty);
-            })
-        })
-    </script>
+    <script src="{{ asset('js/cart.js') }}"></script>
 @endsection
