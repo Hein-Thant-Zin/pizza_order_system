@@ -25,7 +25,7 @@
                     <div class="d-flex mb-3">
                         {{ $pizza->view_count }}<i class="ml-2 fa-solid fa-eye"></i>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-4">{{ $pizza->price }}</h3>
+                    <h3 class="font-weight-semi-bold mb-4">{{ $pizza->price }} $</h3>
                     <p class="mb-4">{{ $pizza->description }}</p>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">

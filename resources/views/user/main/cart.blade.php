@@ -23,9 +23,11 @@
                                 {{-- <input type="hidden" value="{{ $c->pizza_price }}" id="price"> --}}
                                 <td class="align-middle pl-5"><img class="img-thumbnail" style="height: 100px"
                                         src="{{ asset('storage/' . $c->image) }}" alt="" srcset=""></td>
-                                <td class="align-middle">
-                                    {{ $c->pizza_name }}</td>
-                                <td id="price" class="align-middle">{{ $c->pizza_price }} Ks</td>
+                                <td class="align-middle"><input type="hidden" id="productId" value="{{ $c->product_id }}">
+                                    {{ $c->pizza_name }}
+                                </td>
+                                <input type="hidden" id="userId" value="{{ $c->user_id }}">
+                                <td id="price" class="align-middle">{{ $c->pizza_price }} $</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
                                         <div class="input-group-btn">
@@ -40,7 +42,7 @@
                                         </button>
                                     </div>
                                 </td>
-                                <td id="total" class="align-middle">{{ $c->pizza_price * $c->qty }} Ks</td>
+                                <td id="total" class="align-middle">{{ $c->pizza_price * $c->qty }} $</td>
                                 <td id="" class="align-middle"><button class="btn btnRemove btn-sm btn-danger"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>
@@ -55,19 +57,19 @@
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6 id="subTotalPrice">{{ $totalPrice }} Ks</h6>
+                            <h6 id="subTotalPrice">{{ $totalPrice }} $</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">3000 Ks</h6>
+                            <h6 class="font-weight-medium">30 $</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5 class="finalPrice">{{ $totalPrice + 3000 }} Ks</h5>
+                            <h5 class="finalPrice">{{ $totalPrice + 30 }} $</h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To
+                        <button id="orderBtn" class="btn btn-block btn-primary font-weight-bold my-3 py-3">
                             Checkout</button>
                     </div>
                 </div>
@@ -79,4 +81,33 @@
 
 @section('scriptSource')
     <script src="{{ asset('js/cart.js') }}"></script>
+    <script>
+        $('#orderBtn').click(function(index, row) {
+            $orderList = [];
+            $random = Math.floor(Math.random() * 1000000001);
+            $(' #dataTable tbody tr').each(function(index, row) {
+                $orderList.push({
+                    'user_id': $(row).find('#userId').val(),
+                    'product_id': $(row).find('#productId').val(),
+                    'qty': $(row).find('#qty').val(),
+                    'total': $(row).find('#total').html().replace(' $', '') * 1,
+                    'order_code': 'POS' + $random
+                });
+            });
+
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8000/user/ajax/order',
+                data: Object.assign({}, $orderList),
+                dataType: 'json',
+
+                success: function(response) {
+                    // console.log(response);
+                    if (response.status == 'true') {
+                        window.location.href = 'http://127.0.0.1:8000/user/homePage';
+                    }
+                }
+            })
+        })
+    </script>
 @endsection

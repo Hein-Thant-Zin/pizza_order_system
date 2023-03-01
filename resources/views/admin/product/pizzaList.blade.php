@@ -18,7 +18,7 @@
                             <a href="{{ route('product#createPage') }}">
                                 <button type="submit"
                                     class="btn  btn-active au-btn au-btn-icon au-btn--green au-btn--small" <i
-                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add pizza
+                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add product
                                 </button>
                             </a>
                             <button class="au-btn au-btn-icon btn btn btn-active au-btn--green au-btn--small">
@@ -74,6 +74,7 @@
                             <h3><i class="fa-solid fa-database me-1 "></i>{{ $pizzas->total() }} </h3>
                         </div>
                     </div>
+                    {{-- @if (count($categories) != 0)/ --}}
                     @if (count($pizzas) != 0)
                         <div class="table-responsive table-responsive-data2 text-center">
                             <table class="table table-data2">
@@ -135,7 +136,7 @@
                         </div>
                         <div class="mt-3">
                             {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                            {{-- {{ $categories->links() }} --}}
+                            {{ $pizzas->links() }}
 
                         </div>
                     @else

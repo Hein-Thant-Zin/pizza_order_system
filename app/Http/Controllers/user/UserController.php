@@ -56,7 +56,8 @@ class UserController extends Controller
     {
         $pizza = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
         $category = Category::get();
-        return view('user.main.home', compact('pizza', 'category'));
+        $cart = Cart::where('user_id', Auth::user()->id)->get();
+        return view('user.main.home', compact('pizza', 'category', 'cart'));
         // dd($categoryId);
     }
 

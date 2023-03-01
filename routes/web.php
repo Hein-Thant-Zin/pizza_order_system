@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\user\UserController;
@@ -22,6 +23,7 @@ use App\Models\Product;
 |
 */
 
+// Route::redirect('/', 'homePage');
 
 Route::middleware(['admin_auth'])->group(function () {
     //login //register
@@ -93,7 +95,7 @@ Route::middleware(['auth'])->group(function () {
     //user
     //home
     Route::group(['prefix' => 'user', 'middleware' => 'user_auth'], function () {
-        Route::get('/homePage', [UserController::class, 'home'])->name('user#home');
+        Route::get('homePage', [UserController::class, 'home'])->name('user#home');
         Route::get('/filter/{id}', [UserController::class, 'filter'])->name('user#filter');
         Route::prefix('cart')->group(function () {
             Route::get('/list', [UserController::class, 'cartList'])->name('cart#cartList');
@@ -116,7 +118,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('ajax')->group(function () {
             Route::get('pizza/list', [AjaxController::class, 'pizzaList'])->name('ajax#pizzaList');
             Route::get('addToCart', [AjaxController::class, 'addToCart'])->name('ajax#addToCart');
+            Route::get('order', [AjaxController::class, 'order'])->name('ajax#order');
         });
+        Route::get('api', [ApiController::class, 'api'])->name('api');
     });
 });
 
