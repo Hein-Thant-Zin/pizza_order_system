@@ -87,7 +87,16 @@
                                         <span
                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                                             {{ count($cart) }}
+                                        </span>
+                                    </button>
+                                </a>
 
+                                <a href="{{ route('user#history') }}">
+                                    <button type="button" class="btn  position-relative">
+                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                            {{ count($cart) }}
                                         </span>
                                     </button>
                                 </a>
@@ -151,8 +160,24 @@
                         @endforeach
                     </div>
 
+
                 </div>
             </div>
+            {{-- <form action="{{ route('api#test') }}">
+                <label for="branch">Choose a branch:</label>
+                <select name="branch" id="branch">
+                    <optgroup label="Mandalay Region">
+                        <option value="1">Amarapura</option>
+                        <option value="2">Wundwin</option>
+                    </optgroup>
+                    <optgroup label="Ayawaddy Region">
+                        <option value="3">Aya</option>
+                        <option value="4">brr</option>
+                    </optgroup>
+                </select>
+                <br><br>
+                <button class="btn btn-outline-success rounded" type="submit">Run</button>
+            </form> --}}
             <!-- Shop Product End -->
         </div>
     </div>

@@ -25,6 +25,7 @@ class UserController extends Controller
         return view('user.main.home', compact('pizza', 'category', 'cart'));
     }
 
+
     //direct cart page
     public function cartList()
     {
@@ -40,17 +41,22 @@ class UserController extends Controller
         return view('user.main.cart', compact('cartList', 'totalPrice'));
     }
 
+
     //direct user details page
     public function details()
     {
         return view('user.account.details');
     }
 
+
+
     //direct user edit page
     public function edit()
     {
         return view('user.account.edit');
     }
+
+
     //filter
     public function filter($categoryId)
     {
@@ -60,6 +66,13 @@ class UserController extends Controller
         return view('user.main.home', compact('pizza', 'category', 'cart'));
         // dd($categoryId);
     }
+
+    //direct history page
+    public function history()
+    {
+        return view('user.main.history');
+    }
+
 
     //direct pizza page
     public function pizzaDetails($pizzaId)
@@ -72,11 +85,14 @@ class UserController extends Controller
         // dd($pizzaList->toArray());
         return view('user.main.details', compact('pizza', 'pizzaList'));
     }
+
+
     //direct change password page
     public function changePasswordPage()
     {
         return view('user.account.changePassword');
     }
+
 
     //update account info
     public function update($id, Request $request)

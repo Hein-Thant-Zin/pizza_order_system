@@ -10,5 +10,8 @@ class ApiController extends Controller
     {
         return redirect()->route('user#details');
     }
-    //
+    public function apiTest(Request $request)
+    {
+        dd($request->all());
+    }
 }

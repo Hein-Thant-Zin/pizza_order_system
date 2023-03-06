@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user', 'middleware' => 'user_auth'], function () {
         Route::get('homePage', [UserController::class, 'home'])->name('user#home');
         Route::get('/filter/{id}', [UserController::class, 'filter'])->name('user#filter');
+        Route::get('history', [UserController::class, 'history'])->name('user#history');
         Route::prefix('cart')->group(function () {
             Route::get('/list', [UserController::class, 'cartList'])->name('cart#cartList');
         });
@@ -121,6 +122,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('order', [AjaxController::class, 'order'])->name('ajax#order');
         });
         Route::get('api', [ApiController::class, 'api'])->name('api');
+        Route::get('apiTest', [ApiController::class, 'apiTest'])->name('api#test');
     });
 });
 
