@@ -120,6 +120,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('pizza/list', [AjaxController::class, 'pizzaList'])->name('ajax#pizzaList');
             Route::get('addToCart', [AjaxController::class, 'addToCart'])->name('ajax#addToCart');
             Route::get('order', [AjaxController::class, 'order'])->name('ajax#order');
+            Route::get('clearCart', [AjaxController::class, 'clearCart'])->name('ajax#clearCart');
+            Route::get('clearCurrentProduct', [AjaxController::class, 'clearCurrentProduct'])->name('ajax#clearCurrentProduct');
         });
         Route::get('api', [ApiController::class, 'api'])->name('api');
         Route::get('apiTest', [ApiController::class, 'apiTest'])->name('api#test');

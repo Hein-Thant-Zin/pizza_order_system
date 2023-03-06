@@ -23,9 +23,12 @@
                                 {{-- <input type="hidden" value="{{ $c->pizza_price }}" id="price"> --}}
                                 <td class="align-middle pl-5"><img class="img-thumbnail" style="height: 100px"
                                         src="{{ asset('storage/' . $c->image) }}" alt="" srcset=""></td>
-                                <td class="align-middle"><input type="hidden" id="productId" value="{{ $c->product_id }}">
+                                <td class="align-middle"><input type="hidden" class="productId"
+                                        value="{{ $c->product_id }}">
+                                    <input type="hidden" class="cartId" value="{{ $c->cart_id }}">
                                     {{ $c->pizza_name }}
                                 </td>
+
                                 <input type="hidden" id="userId" value="{{ $c->user_id }}">
                                 <td id="price" class="align-middle">{{ $c->pizza_price }} $</td>
                                 <td class="align-middle">
@@ -71,6 +74,8 @@
                         </div>
                         <button id="orderBtn" class="btn btn-block btn-primary font-weight-bold my-3 py-3">
                             Checkout</button>
+                        <button id="clearCartBtn" class="btn btn-block btn-danger font-weight-bold my-3 py-3">
+                            Clear Cart</button>
                     </div>
                 </div>
             </div>
@@ -108,6 +113,46 @@
                     }
                 }
             })
+
+        })
+        //when clear cart
+        $('#clearCartBtn').click(function() {
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8000/user/ajax/clearCart',
+                dataType: 'json',
+            })
+            $('#dataTable tbody tr').remove();
+            $('#subTotalPrice').html("0 $");
+            $('.finalPrice').html("30 $");
+
+        })
+
+        $('.btnRemove').click(function() {
+            $parentNode = $(this).parents('tr');
+            $productId = $parentNode.find('.productId').val();
+            $orderId = $parentNode.find('.cartId').val();
+            // console.log($cart_id);
+
+            $parentNode.remove();
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8000/user/ajax/clearCurrentProduct',
+                dataType: 'json',
+                data: {
+                    'productId': $productId,
+                    'cartId': $orderId,
+                },
+            })
+            $totalPrice = 0;
+
+            $("#dataTable tr").each(function(index, row) {
+                $totalPrice += Number(
+                    $(row).find("#total").text().replace(" $", "")
+                );
+            });
+            $("#subTotalPrice").html($totalPrice + " $");
+            $(".finalPrice").html($totalPrice + 30 + " $");
         })
     </script>
 @endsection

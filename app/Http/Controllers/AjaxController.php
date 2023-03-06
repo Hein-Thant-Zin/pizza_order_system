@@ -67,6 +67,19 @@ class AjaxController extends Controller
             'message' => 'order completed',
         ], 200);
     }
+    public function clearCart()
+    {
+        Cart::where('user_id', Auth::user()->id)->delete();
+    }
+
+    //clearCurrentProduct
+
+    public function clearCurrentProduct(Request $request)
+    {
+        Cart::where('user_id', Auth::user()->id)
+            ->where('product_id', $request->productId)
+            ->where('cart_id', $request->orderId)->delete();
+    }
     //get order data
     private function getOrderData($request)
     {

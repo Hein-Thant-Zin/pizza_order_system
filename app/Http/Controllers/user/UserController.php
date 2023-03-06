@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -19,10 +21,12 @@ class UserController extends Controller
     //user home page
     public function home()
     {
+        $history = Order::where('user_id', Auth::user()->id)->get();
         $pizza = Product::get();
         $category = Category::get();
         $cart = Cart::where('user_id', Auth::user()->id)->get();
-        return view('user.main.home', compact('pizza', 'category', 'cart'));
+        $history = Order::where('user_id', Auth::user()->id)->get();
+        return view('user.main.home', compact('pizza', 'category', 'cart', 'history'));
     }
 
 
@@ -60,17 +64,21 @@ class UserController extends Controller
     //filter
     public function filter($categoryId)
     {
+        $history = Order::where('user_id', Auth::user()->id)->get();
         $pizza = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
         $category = Category::get();
         $cart = Cart::where('user_id', Auth::user()->id)->get();
-        return view('user.main.home', compact('pizza', 'category', 'cart'));
+        return view('user.main.home', compact('pizza', 'category', 'cart', 'history'));
         // dd($categoryId);
     }
 
     //direct history page
     public function history()
     {
-        return view('user.main.history');
+
+        $order = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(5);
+
+        return view('user.main.history', compact('order'));
     }
 
 
@@ -80,7 +88,6 @@ class UserController extends Controller
         // dd($pizzaId);
 
         $pizza = Product::where('id', $pizzaId)->first();
-        // dd($pizza->toArray());
         $pizzaList = Product::get();
         // dd($pizzaList->toArray());
         return view('user.main.details', compact('pizza', 'pizzaList'));
