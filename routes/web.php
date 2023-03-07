@@ -9,6 +9,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\user\UserController;
 use App\Models\Product;
 
@@ -85,6 +86,11 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product#edit');
                 Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
                 Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
+            });
+
+            //order
+            Route::prefix('order')->group(function () {
+                Route::get('list', [OrderController::class, 'orderList'])->name('admin#orderList');
             });
         });
     });

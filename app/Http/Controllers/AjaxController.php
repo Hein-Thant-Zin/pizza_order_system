@@ -41,6 +41,7 @@ class AjaxController extends Controller
     //order
     public function order(Request $request)
     {
+
         $total = 0;
         foreach ($request->all() as $item) {
             $data = OrderList::create([
@@ -77,8 +78,8 @@ class AjaxController extends Controller
     public function clearCurrentProduct(Request $request)
     {
         Cart::where('user_id', Auth::user()->id)
-            ->where('product_id', $request->productId)
-            ->where('cart_id', $request->orderId)->delete();
+            ->where('product_id', $request->product_id)
+            ->where('cart_id', $request->cart_id)->delete();
     }
     //get order data
     private function getOrderData($request)

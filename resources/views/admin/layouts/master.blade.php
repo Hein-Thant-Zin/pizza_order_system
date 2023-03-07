@@ -74,6 +74,11 @@
                                 <i class="fa-solid fa-pizza-slice"></i>Products</a>
                         </li>
 
+                        <li>
+                            <a href="{{ route('admin#orderList') }}">
+                                <i class="fa-solid fa-list-check"></i>Order List</a>
+                        </li>
+
 
 
                     </ul>
@@ -147,8 +152,6 @@
                                                 <img src="{{ asset('admin/images/default_user.png') }}"
                                                     alt="" srcset="">
                                             @endif
-
-
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{ Auth::user()->name }}</a>

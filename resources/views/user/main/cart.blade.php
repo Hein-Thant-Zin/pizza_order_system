@@ -72,7 +72,7 @@
                             <h5>Total</h5>
                             <h5 class="finalPrice">{{ $totalPrice + 30 }} $</h5>
                         </div>
-                        <button id="orderBtn" class="btn btn-block btn-primary font-weight-bold my-3 py-3">
+                        <button id="orderBtn" class="btn orderBtn btn-block btn-primary font-weight-bold my-3 py-3">
                             Checkout</button>
                         <button id="clearCartBtn" class="btn btn-block btn-danger font-weight-bold my-3 py-3">
                             Clear Cart</button>
@@ -87,13 +87,25 @@
 @section('scriptSource')
     <script src="{{ asset('js/cart.js') }}"></script>
     <script>
+        // $('#orderBtn').click(function(index, row) {
+        //     $orderList = [];
+        //     $random = Math.floor(Math.random() * 1000001);
+        //     $('#dataTable tbody tr').each(function(index, row) {
+        //         $orderList.push({
+        //             'user_id': $(row).find('#userId').val(),
+        //             'product_id': $(row).find('#productId').val(),
+
+        //         })
+        //         console.log($orderList);
+        //     })
+        // })
         $('#orderBtn').click(function(index, row) {
             $orderList = [];
             $random = Math.floor(Math.random() * 1000000001);
-            $(' #dataTable tbody tr').each(function(index, row) {
+            $('#dataTable tbody tr').each(function(index, row) {
                 $orderList.push({
                     'user_id': $(row).find('#userId').val(),
-                    'product_id': $(row).find('#productId').val(),
+                    'product_id': $(row).find('.productId').val(),
                     'qty': $(row).find('#qty').val(),
                     'total': $(row).find('#total').html().replace(' $', '') * 1,
                     'order_code': 'POS' + $random
@@ -107,7 +119,7 @@
                 dataType: 'json',
 
                 success: function(response) {
-                    // console.log(response);
+
                     if (response.status == 'true') {
                         window.location.href = 'http://127.0.0.1:8000/user/homePage';
                     }
@@ -140,10 +152,12 @@
                 url: 'http://127.0.0.1:8000/user/ajax/clearCurrentProduct',
                 dataType: 'json',
                 data: {
-                    'productId': $productId,
-                    'cartId': $orderId,
+                    'product_id': $productId,
+                    'cart_id': $orderId,
                 },
-            })
+
+
+            });
             $totalPrice = 0;
 
             $("#dataTable tr").each(function(index, row) {
