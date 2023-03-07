@@ -27,7 +27,7 @@ class AjaxController extends Controller
     //return pizza list
     public function addToCart(Request $request)
     {
-        // logger($request->all());
+        logger($request->all());
         $data = $this->getOrderData($request);
         // Logger($data);
 
@@ -41,7 +41,6 @@ class AjaxController extends Controller
     //order
     public function order(Request $request)
     {
-
         $total = 0;
         foreach ($request->all() as $item) {
             $data = OrderList::create([

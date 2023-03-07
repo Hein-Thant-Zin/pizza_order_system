@@ -9,7 +9,11 @@ class OrderController extends Controller
 {
     public function orderList()
     {
-        $order = Order::get();
+        $order = Order::select('orders.*', 'users.name as user_name')
+            ->leftJoin('users', 'users.id', 'orders.user_id')
+            ->paginate(4);
+        // dd($order->toArray());
+
         return view('admin.order.list', compact('order'));
     }
 }

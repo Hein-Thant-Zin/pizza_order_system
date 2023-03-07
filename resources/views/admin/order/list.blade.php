@@ -71,7 +71,7 @@
                     </div>
                     <div class="  mt-2 ">
                         <div class="float-right ml-3 text-center col-1 offset-10 bg-white shadow-sm p-2">
-                            {{-- <h3><i class="fa-solid fa-database me-1 "></i>{{ $pizzas->total() }} </h3> --}}
+                            <h3><i class="fa-solid fa-database me-1 "></i>{{ $order->total() }} </h3>
                         </div>
                     </div>
                     {{-- @if (count($categories) != 0)/ --}}
@@ -90,33 +90,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($pizzas as $pizza)
+                                @foreach ($order as $l)
                                     <tr class="tr-shadow">
-                                        <td class="col-3"><img class="w-50 img-thumbnail shadow-sm"
-                                                src="{{ asset('storage/' . $pizza->image) }}"
-                                                alt="Cutest girl on the entire planet"></td>
-                                        <td>{{ $pizza->name }}</td>
+                                        <td>{{ $l->user_id }}</td>
+                                        <td>{{ $l->user_name }}</td>
+                                        <td>{{ $l->created_at->format('d-m-Y') }}</td>
+                                        <td>{{ $l->order_code }}</td>
+                                        <td>{{ $l->total_price }} $</td>
+                                        <td class="align-middle">
+                                            <select name="status" class="form-control text-center" id="">
+                                                <option value="0" @if ($l->status == 0) selected @endif>
+                                                    Pending
+                                                </option>
 
-                                        <td>{{ $pizza->price }}</td>
-                                        <td>{{ $pizza->category_name }}</td>
-                                        <td><i class="fa-solid fa-eye me-1"></i>{{ $pizza->view_count }}</td>
-                                        <td>{{ $pizza->created_at->format('j-F-Y') }}</td>
-                                        <td>
+                                                <option value="1" @if ($l->status == 0) selected @endif>
+                                                    Success
+                                                </option>
+                                                <option value="2" @if ($l->status == 0) selected @endif>
+                                                    Reject
+                                                </option>
+                                            </select>
+                                        </td>
+
+                                        {{-- <td>
                                             <div class="table-data-feature">
-                                                <a href="{{ route('product#details', $pizza->id) }}">
+                                                <a href="">
                                                     <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                         title="View">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </button>
                                                 </a>
 
-                                                <a href="{{ route('product#edit', $pizza->id) }}">
+                                                <a href="">
                                                     <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                         title="Edit">
                                                         <i class="zmdi zmdi-edit "></i>
                                                     </button>
                                                 </a>
-                                                <a href="{{ route('product#delete', $pizza->id) }}">
+                                                <a href="">
                                                     <button class="item" data-toggle="tooltip" data-placement="top"
                                                         title="Delete">
                                                         <i class="zmdi zmdi-delete"></i>
@@ -124,16 +135,16 @@
                                                 </a>
 
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
 
                     </div>
                     <div class="mt-3">
                         {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                        {{-- {{ $pizzas->links() }} --}}
+                        {{ $order->links() }}
 
                     </div>
                     {{-- @else --}}

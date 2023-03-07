@@ -134,8 +134,11 @@
                                         <img style="height: 300px;" class="img-fluid "
                                             src="{{ asset('storage/' . $p->image) }}">
                                         <div class="product-action">
-                                            <a class="btn btn-outline-dark btn-square" href=""><i
-                                                    class="fa fa-shopping-cart"></i></a>
+                                            <a class="btn btn-outline-dark btn-square" id="cartBtn" href="">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <input type="hidden" id='pizzaId' value="{{ $p->id }}">
+                                                <input type="hidden" id='userId' value="{{ Auth::user()->id }}">
+                                            </a>
                                             <a alt='Details' title="Details" class="btn btn-outline-dark btn-square"
                                                 href="{{ route('pizza#details', $p->id) }}"><i
                                                     class="fa-solid fa-circle-info"></i></a>
@@ -298,6 +301,25 @@
 
                 }
             })
+        })
+
+
+        $('#cartBtn').click(function() {
+            $source = {
+                'userId': $('#userId').val(),
+                'pizzaId': $('#pizzaId').val(),
+                'count': 1,
+            };
+            // console.log($source);
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8000/user/ajax/addToCart',
+                dataType: 'json',
+                data: $source,
+
+            })
+
+
         })
     </script>
 @endsection
