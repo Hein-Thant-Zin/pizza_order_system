@@ -246,8 +246,10 @@
 
     <!-- Main JS-->
     <script src="{{ asset('admin/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </body>
+@yield('scriptSection')
 
 </html>
 <!-- end document-->

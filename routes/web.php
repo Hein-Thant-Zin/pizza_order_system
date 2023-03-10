@@ -1,17 +1,18 @@
 <?php
 
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AjaxController;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\user\UserController;
-use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ use App\Models\Product;
 */
 
 // Route::redirect('/', 'homePage');
+// Route::get('/', 'welcome');
 
 Route::middleware(['admin_auth'])->group(function () {
     //login //register
@@ -76,22 +78,22 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('changeRole/{id}', [AdminController::class, 'changeRole'])->name('admin#changeRole');
             Route::post('change/role/{id}', [AdminController::class, 'change'])->name('admin#change');
-
-            //products
-            Route::prefix('products')->group(function () {
-                Route::get('list', [ProductController::class, 'list'])->name('products#list');
-                Route::get('createPage', [ProductController::class, 'createPage'])->name('product#createPage');
-                Route::post('create', [ProductController::class, 'create'])->name('product#create');
-                Route::get('deatils/{id}', [ProductController::class, 'details'])->name('product#details');
-                Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product#edit');
-                Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
-                Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
-            });
-
-            //order
-            Route::prefix('order')->group(function () {
-                Route::get('list', [OrderController::class, 'orderList'])->name('admin#orderList');
-            });
+        });
+        //products
+        Route::prefix('products')->group(function () {
+            Route::get('list', [ProductController::class, 'list'])->name('products#list');
+            Route::get('createPage', [ProductController::class, 'createPage'])->name('product#createPage');
+            Route::post('create', [ProductController::class, 'create'])->name('product#create');
+            Route::get('deatils/{id}', [ProductController::class, 'details'])->name('product#details');
+            Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product#edit');
+            Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
+            Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
+        });
+        //order
+        Route::prefix('order')->group(function () {
+            Route::get('list', [OrderController::class, 'orderList'])->name('admin#orderList');
+            // Route::get('ajax/status', [OrderController::class, 'ajaxStatus'])->name('admin#ajaxStatus');
+            Route::get('ajax/status', [OrderController::class, 'ajaxStatus'])->name('admin#ajaxStatus');
         });
     });
 
@@ -127,10 +129,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('addToCart', [AjaxController::class, 'addToCart'])->name('ajax#addToCart');
             Route::get('order', [AjaxController::class, 'order'])->name('ajax#order');
             Route::get('clearCart', [AjaxController::class, 'clearCart'])->name('ajax#clearCart');
+
             Route::get('clearCurrentProduct', [AjaxController::class, 'clearCurrentProduct'])->name('ajax#clearCurrentProduct');
         });
         Route::get('api', [ApiController::class, 'api'])->name('api');
-        Route::get('apiTest', [ApiController::class, 'apiTest'])->name('api#test');
+        // Route::get('apiTest', [ApiController::class, 'apiTest'])->name('api#test');
+        Route::get('/route-cache', function () {
+            Artisan::call('route:cache');
+            return back();
+        })->name('route#cacheClear');
     });
 });
 
