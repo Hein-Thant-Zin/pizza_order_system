@@ -102,9 +102,7 @@
                         @csrf
                         <div class="d-flex">
                             <label class="p-2" for="">
-                                <button class="btn btn-block"><i class="fa-solid fa-database me-1 "></i>
-                                    {{ $order->total() }}
-                                </button>
+
                             </label>
 
                             <select class="custom-select col-2" name="orderStatus" id="orderStatus">
@@ -120,6 +118,7 @@
                     </form> --}}
                     {{-- @if (count($categories) != 0)/ --}}
                     {{-- @if (count($pizzas) != 0) --}}
+
                     <div class="table-responsive table-responsive-data2 text-center">
                         <table class="table table-data2">
                             <thead>
@@ -139,7 +138,9 @@
                                         <td>{{ $o->user_id }}</td>
                                         <td>{{ $o->user_name }}</td>
                                         <td>{{ $o->created_at->format('Y-m-d') }}</td>
-                                        <td>{{ $o->order_code }}</td>
+                                        <td><a
+                                                href="{{ route('order#listInfo', $o->order_code) }}">{{ $o->order_code }}</a>
+                                        </td>
                                         <td id="amount">{{ $o->total_price }} $</td>
                                         <td class="align-middle">
                                             <select name="status" class="form-control statusChange  text-center"

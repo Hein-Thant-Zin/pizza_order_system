@@ -102,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
             // Route::post('change/status', [OrderController::class, 'changeStatus'])->name('admin#changeStatus');
 
             Route::get('ajax/change/status', [OrderController::class, 'ajaxChangeStatus'])->name('admin#ajaxChangeStatus');
+            Route::get('listInfo/{orderCode}', [OrderController::class, 'listInfo'])->name('order#listInfo');
         });
     });
 
