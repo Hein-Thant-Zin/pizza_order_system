@@ -76,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('delete/{id}', [AdminController::class, 'delete'])->name('admin#delete');
 
+            //ajax change role
+            Route::get('ajax/change/role', [AdminController::class, 'ajaxChangeRole'])->name('ajax#changeRole');
+
             Route::get('changeRole/{id}', [AdminController::class, 'changeRole'])->name('admin#changeRole');
             Route::post('change/role/{id}', [AdminController::class, 'change'])->name('admin#change');
         });
@@ -89,13 +92,20 @@ Route::middleware(['auth'])->group(function () {
             Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
             Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
         });
+
         //order
         Route::prefix('order')->group(function () {
             Route::get('list', [OrderController::class, 'orderList'])->name('admin#orderList');
+            Route::post('change/status', [OrderController::class, 'changeStatus'])->name('admin#changeStatus');
+            // Route::post('change/status', [OrderController::class, 'changeStatus'])->name('admin#changeStatus');
             // Route::get('ajax/status', [OrderController::class, 'ajaxStatus'])->name('admin#ajaxStatus');
-            Route::get('ajax/status', [OrderController::class, 'ajaxStatus'])->name('admin#ajaxStatus');
+            // Route::post('change/status', [OrderController::class, 'changeStatus'])->name('admin#changeStatus');
+
+            Route::get('ajax/change/status', [OrderController::class, 'ajaxChangeStatus'])->name('admin#ajaxChangeStatus');
         });
     });
+
+
 
 
 

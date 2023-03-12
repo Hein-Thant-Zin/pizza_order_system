@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -76,6 +77,12 @@ class AdminController extends Controller
         $admin->appends(request()->all());
         // dd($admin);
         return view('admin.account.list', compact('admin'));
+    }
+
+    //ajax change role
+    public function ajaxChangeRole(Request $request)
+    {
+        Logger($request->all());
     }
 
     //change Role

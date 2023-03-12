@@ -83,6 +83,7 @@
                                     <th>phone</th>
                                     <th>address</th>
                                     <th>gender</th>
+                                    <th>Change Role</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -107,13 +108,18 @@
                                         <td>{{ $a->address }}</td>
                                         <td>{{ $a->gender }}</td>
                                         <td>
-                                            {{-- <a
-                                                href=" @if (Auth::user()->id == $a->id) @else {{ route('admin#delete') }} @endif ">
-                                                <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </a> --}}
+                                            <select name="status" class="form-control changeRole   text-center"
+                                                id="">
+                                                <option value="user" @if ($a->role == 'user') selected @endif>
+                                                    User
+                                                </option>
+                                                <option value="admin" @if ($a->role == 'admin') selected @endif>
+                                                    Admin
+                                                </option>
+
+                                            </select>
+                                        </td>
+                                        <td>
                                             <div class="table-data-feature">
                                                 @if (Auth::user()->id == $a->id)
                                                 @else
@@ -155,4 +161,25 @@
             </div>
         </div>
         <!-- END MAIN CONTENT-->
+    @endsection
+    @section('scriptSection')
+        <script>
+            $(document).ready(function() {
+                // console.log('dd');
+                $('.changeRole').change(function() {
+                    $currentStatus = $(this).val();
+                    // console.log($currentStatus);
+                    $.ajax({
+                        console.log(data);
+                        type: 'get',
+                        url: '/admin/ajax/change/role',
+                        dataType: 'Json',
+                        data: {
+                            'data': $currentStatus,
+                        },
+                    });
+
+                })
+            })
+        </script>
     @endsection
