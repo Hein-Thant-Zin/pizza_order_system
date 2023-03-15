@@ -17,13 +17,10 @@
                         <div class="table-data__tool-right">
                             <a href="{{ route('product#createPage') }}">
                                 <button type="submit"
-                                    class="btn  btn-active au-btn au-btn-icon au-btn--green au-btn--small" <i
+                                    class="btn  btn-active bg-dark au-btn au-btn-icon au-btn--green au-btn--small" <i
                                     class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add product
                                 </button>
                             </a>
-                            <button class="au-btn au-btn-icon btn btn btn-active au-btn--green au-btn--small">
-                                <i class="fa-solid fa-arrow-down"></i> CSV download
-                            </button>
                         </div>
                     </div>
                     {{-- alert box for pizzaSuccess --}}

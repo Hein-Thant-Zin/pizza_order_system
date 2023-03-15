@@ -21,12 +21,13 @@ class UserController extends Controller
     //user home page
     public function home()
     {
+        $order = Order::paginate(4);
         $history = Order::where('user_id', Auth::user()->id)->get();
         $pizza = Product::get();
         $category = Category::get();
         $cart = Cart::where('user_id', Auth::user()->id)->get();
         $history = Order::where('user_id', Auth::user()->id)->get();
-        return view('user.main.home', compact('pizza', 'category', 'cart', 'history'));
+        return view('user.main.home', compact('pizza', 'category', 'cart', 'history', 'order'));
     }
 
 

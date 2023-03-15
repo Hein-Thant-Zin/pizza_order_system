@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 // use Storage;
 use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Order;
 use Illuminate\Log\Logger;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,8 @@ class AdminController extends Controller
     //change password page
     public function changePasswordPage()
     {
-        return view('admin.account.changePassword');
+        $order = Order::paginate(4);
+        return view('admin.account.changePassword', compact('order'));
     }
 
     //change password
@@ -61,7 +63,8 @@ class AdminController extends Controller
     //direct details page
     public function details()
     {
-        return view('admin.account.details');
+        $order = Order::paginate(4);
+        return view('admin.account.details', compact('order'));
     }
 
     public function list()
@@ -73,10 +76,11 @@ class AdminController extends Controller
                 ->orWhere('address', 'like', '%' . request('key') . '%')
                 ->orWhere('gender', 'like', '%' . request('key') . '%');
         })
-            ->where('role', 'admin')->paginate(3);
+            ->where('role', 'admin')->paginate(5);
         $admin->appends(request()->all());
+        $order = Order::paginate(5);
         // dd($admin);
-        return view('admin.account.list', compact('admin'));
+        return view('admin.account.list', compact('admin', 'order'));
     }
 
     //ajax change role
@@ -120,7 +124,8 @@ class AdminController extends Controller
     //direct edit profile page
     public function edit()
     {
-        return view('admin.account.edit');
+        $order = Order::paginate(4);
+        return view('admin.account.edit', compact('order'));
     }
 
     //update account info

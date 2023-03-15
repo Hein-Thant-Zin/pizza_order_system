@@ -157,7 +157,7 @@
                     </div>
                     <div class="mt-3">
                         {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                        {{ $order->links() }}
+                        {{ $order->appends(request()->query())->links() }}
 
                     </div>
                     {{-- @else --}}

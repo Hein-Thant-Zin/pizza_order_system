@@ -15,7 +15,7 @@
                         <div class="col-lg-6 offset-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-title">
+                                    <div class="card-title bg-dark">
                                         <h3 class="text-center title-2">Change your password</h3>
                                     </div>
                                     {{-- @if (session('changeSuccess'))

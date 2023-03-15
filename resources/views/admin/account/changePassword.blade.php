@@ -83,7 +83,7 @@
 
                                         <div>
                                             <button id="payment-button" type="submit"
-                                                class="btn btn-lg btn-info btn-block">
+                                                class="btn btn-lg bg-dark btn-info btn-block">
                                                 <i class="fa-solid fa-key"></i> <span id="payment-button-amount">Change
                                                     Password</span>
                                                 {{-- <span id="payment-button-sending" style="display:none;">Sending…</span>

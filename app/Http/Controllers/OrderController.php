@@ -16,11 +16,12 @@ class OrderController extends Controller
         // return "test";
         $order = Order::select('orders.*', 'users.name as user_name')
             ->when(request('key'), function ($query) {
-                $query->where('products.name', 'like', '%' . request('key') . '%');
+                $query->where('users.name', 'products.name', 'like', '%' . request('key') . '%');
             })
             ->orderBy('orders.created_at', 'desc')
             ->leftJoin('users', 'users.id', 'orders.user_id')
             ->paginate(4);
+        $order->appends(request()->all());
         // dd($order->toArray());
 
         return view('admin.order.list', compact('order'));

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,6 +14,7 @@ class CategoryController extends Controller
 
     {
         // dd(request('key'));
+        $order = Order::paginate(4);
         $categories = Category::when(request('key'), function ($query) {
             $query->where('name', 'like', '%' . request('key') . '%');
         })->orderBy('id', 'desc')->paginate(5);
@@ -20,7 +22,7 @@ class CategoryController extends Controller
         $categories->appends(request()->all());
 
         // dd($categories);
-        return view('admin.category.list', compact('categories'));
+        return view('admin.category.list', compact('categories', 'order'));
     }
 
     //direct category create page

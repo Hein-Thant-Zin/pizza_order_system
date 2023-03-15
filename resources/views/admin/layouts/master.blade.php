@@ -58,7 +58,7 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="{{ route('category#list') }}">
-                    <img src="{{ asset('admin/images/icon/logo.png') }}" alt="Cool Admin" />
+                    <img src="{{ asset('admin/images/icon/logo.png') }}" alt="" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -82,9 +82,6 @@
                             <a href="{{ route('admin#userList') }}">
                                 <i class="fa-solid fa-users"></i>User List</a>
                         </li>
-
-
-
                     </ul>
                 </nav>
             </div>
@@ -105,21 +102,24 @@
                                 <div class="noti-wrap">
                                     <div class="noti__item js-item-menu">
                                         <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">3</span>
+                                        <span class="quantity"> {{ $order->total() }}</span>
                                         <div class="notifi-dropdown js-dropdown">
                                             <div class="notifi__title">
-                                                <p>You have 3 Notifications</p>
+                                                <p>You have a Notifications</p>
                                             </div>
                                             <div class="notifi__item">
-                                                <div class="bg-c1 img-cir img-40">
-                                                    <i class="zmdi zmdi-email-open"></i>
+                                                <div class="bg-c1 bg-dark img-cir img-40">
+                                                    <i class="zmdi  zmdi-email-open"></i>
                                                 </div>
+                                                {{-- <a href=""> --}}
                                                 <div class="content">
-                                                    <p>You got a email notification</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
+                                                    <p>You got {{ $order->total() }} orders</p>
+                                                    <span
+                                                        class="date">{{ $order->created_at->format('Y-m-d') }}</span>
                                                 </div>
+
                                             </div>
-                                            <div class="notifi__item">
+                                            {{-- <div class="notifi__item">
                                                 <div class="bg-c2 img-cir img-40">
                                                     <i class="zmdi zmdi-account-box"></i>
                                                 </div>
@@ -139,7 +139,7 @@
                                             </div>
                                             <div class="notifi__footer">
                                                 <a href="#">All notifications</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

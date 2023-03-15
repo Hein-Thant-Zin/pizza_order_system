@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class ProductController extends Controller
     //direct product list page
     public function list()
     {
+        $order = Order::paginate(4);
         $pizzas = Product::select('products.*', 'categories.name as category_name')
             ->when(request('key'), function ($query) {
                 $query->where('products.name', 'like', '%' . request('key') . '%');
@@ -20,7 +22,7 @@ class ProductController extends Controller
             ->leftJoin('categories', 'products.category_id', 'categories.id')
             ->orderBy('products.created_at', 'desc')
             ->paginate(4);
-        return view('admin.product.pizzaList', compact('pizzas'));
+        return view('admin.product.pizzaList', compact('pizzas', 'order'));
     }
 
     //direct product create page
