@@ -15,15 +15,7 @@
                             </div>
                         </div>
                         <div class="table-data__tool-right">
-                            <a href="{{ route('product#createPage') }}">
-                                <button type="submit"
-                                    class="btn  btn-active au-btn au-btn-icon au-btn--green au-btn--small" <i
-                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add product
-                                </button>
-                            </a>
-                            <button class="au-btn au-btn-icon btn btn btn-active au-btn--green au-btn--small">
-                                <i class="fa-solid fa-arrow-down"></i> CSV download
-                            </button>
+
                         </div>
                     </div>
                     {{-- alert box for pizzaSuccess --}}
@@ -75,10 +67,10 @@
                     <form action="{{ route('admin#changeStatus') }}" method="post">
                         @csrf
 
-                        <div class="col-2 input-group mb-3">
-                            {{-- <button class="btn btn-block"><i class="fa-solid fa-database me-1 "></i>
+                        <div class="col-3 input-group mb-3">
+                            <button class="btn bg-black  text-white"><i class="fa-solid fa-database me-1 "></i>
                                 {{ $order->total() }}
-                            </button> --}}
+                            </button>
                             <select class="custom-select" name="orderStatus" id="orderStatus">
                                 <option value="">All</option>
                                 <option value="0" @if (request('orderStatus') == '0') selected @endif>Pending</option>
@@ -134,7 +126,7 @@
                             <tbody id="dataList">
                                 @foreach ($order as $o)
                                     <tr class="tr-shadow">
-                                        <input type="hidden" value="{{ $o->order_id }}" name="" id="orderId">
+                                        {{-- <input type="hidden" value="{{ $o->order_id }}" name="" id="orderId"> --}}
                                         <td>{{ $o->user_id }}</td>
                                         <td>{{ $o->user_name }}</td>
                                         <td>{{ $o->created_at->format('Y-m-d') }}</td>
@@ -284,7 +276,7 @@
                     'status': $currentStatus,
                     'orderId': $orderId,
                 };
-                console.log($data);
+                // console.log($data);
                 $.ajax({
                     type: 'get',
                     url: '/order/ajax/change/status',

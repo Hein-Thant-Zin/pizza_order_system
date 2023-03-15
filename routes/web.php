@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\UserController as ControllersUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('product#delete');
             Route::post('update', [ProductController::class, 'updateProduct'])->name('product#update');
         });
+
+
+        //user List
+        Route::prefix('user')->group(function () {
+            Route::get('list', [ControllersUserController::class, 'userList'])->name('admin#userList');
+            Route::get('ajax/change/role', [ControllersUserController::class, 'changeRole'])->name('admin#ajaxChangeRole');
+        });
+
 
         //order
         Route::prefix('order')->group(function () {

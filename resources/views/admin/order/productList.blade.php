@@ -136,9 +136,6 @@
                                         <td>{{ $o->qty }}</td>
                                         <td id="amount">{{ $o->total }} $</td>
                                         <td>{{ $o->created_at->format('Y-m-d') }}</td>
-                                        {{-- <td><a
-                                                href="{{ route('order#listInfo', $o->order_code) }}">{{ $o->order_code }}</a>
-                                        </td> --}}
 
                                         <td class="align-middle">
                                             <select name="status" class="form-control statusChange  text-center"

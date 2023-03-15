@@ -20,7 +20,7 @@ class OrderController extends Controller
             })
             ->orderBy('orders.created_at', 'desc')
             ->leftJoin('users', 'users.id', 'orders.user_id')
-            ->get();
+            ->paginate(4);
         // dd($order->toArray());
 
         return view('admin.order.list', compact('order'));
