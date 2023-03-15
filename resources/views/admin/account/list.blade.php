@@ -17,13 +17,11 @@
                         <div class="table-data__tool-right">
                             <a href="{{ route('auth#registerPage') }}">
                                 <button type="submit"
-                                    class="btn  btn-active au-btn au-btn-icon au-btn--green au-btn--small" <i
-                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add
+                                    class="btn  btn-active au-btn bg-dark au-btn-icon au-btn--green au-btn--small" <i
+                                    class="zmdi zmdi-plus"></i> <i class="fa-solid fa-plus"></i>add admin
                                 </button>
                             </a>
-                            <button class="au-btn au-btn-icon btn btn btn-active au-btn--green au-btn--small">
-                                <i class="fa-solid fa-arrow-down"></i> CSV download
-                            </button>
+
                         </div>
                     </div>
                     {{-- alert box for categorySuccess --}}
@@ -102,35 +100,41 @@
                                                     srcset="">
                                             @endif
                                         </td>
-                                        <td>{{ $a->id }}({{ Auth::user()->id }})</td>
+                                        <td>{{ $a->name }}</td>
                                         <td>{{ $a->email }}</td>
                                         <td>{{ $a->phone }}</td>
                                         <td>{{ $a->address }}</td>
                                         <td>{{ $a->gender }}</td>
+                                        <input type="hidden" id="userId" value="{{ $a->id }}">
                                         <td>
-                                            <select name="status" class="form-control changeRole   text-center"
-                                                id="">
-                                                <option value="user" @if ($a->role == 'user') selected @endif>
-                                                    User
-                                                </option>
-                                                <option value="admin" @if ($a->role == 'admin') selected @endif>
-                                                    Admin
-                                                </option>
+                                            @if (Auth::user()->id == $a->id)
+                                            @else
+                                                <select name="status" class="form-control changeRole   text-center"
+                                                    id="">
+                                                    <option value="user"
+                                                        @if ($a->role == 'user') selected @endif>
+                                                        User
+                                                    </option>
 
-                                            </select>
+                                                    <option value="admin"
+                                                        @if ($a->role == 'admin') selected @endif>
+                                                        Admin
+                                                    </option>
+                                                </select>
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="table-data-feature">
                                                 @if (Auth::user()->id == $a->id)
                                                 @else
                                                     <a href="{{ route('admin#changeRole', $a->id) }}">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                             title="Change role">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-edit "></i>
                                                         </button>
                                                     </a>
                                                     <a href="{{ route('admin#delete', $a->id) }}">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item me-1" data-toggle="tooltip" data-placement="top"
                                                             title="Delete">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
@@ -168,17 +172,19 @@
                 // console.log('dd');
                 $('.changeRole').change(function() {
                     $currentStatus = $(this).val();
-                    // console.log($currentStatus);
+                    $parentNode = $(this).parents('tr');
+                    $userId = $parentNode.find('#userId').val();
                     $.ajax({
-                        console.log(data);
+
                         type: 'get',
                         url: '/admin/ajax/change/role',
                         dataType: 'Json',
                         data: {
-                            'data': $currentStatus,
+                            'role': $currentStatus,
+                            'userId': $userId,
                         },
                     });
-
+                    location.reload();
                 })
             })
         </script>

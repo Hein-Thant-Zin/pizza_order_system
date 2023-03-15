@@ -136,7 +136,6 @@
                                         <td>{{ $o->qty }}</td>
                                         <td id="amount">{{ $o->total }} $</td>
                                         <td>{{ $o->created_at->format('Y-m-d') }}</td>
-
                                         <td class="align-middle">
                                             <select name="status" class="form-control statusChange  text-center"
                                                 id="">
@@ -160,7 +159,7 @@
                     </div>
                     <div class="mt-3">
                         {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                        {{-- {{ $order->links() }} --}}
+                        {{ $orderList->links() }}
 
                     </div>
                     {{-- @else --}}

@@ -58,13 +58,6 @@
                             </form>
                         </div>
                     </div>
-
-
-
-
-
-
-
                     <h2>Total - {{ $user->total() }}</h2>
                     <div class="table-responsive table-responsive-data2 text-center">
 
@@ -122,7 +115,7 @@
                     </div>
                     <div class="mt-3">
                         {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                        {{-- {{ $order->links() }} --}}
+                        {{ $user->links() }}
 
                     </div>
                     {{-- @else --}}

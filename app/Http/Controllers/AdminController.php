@@ -82,7 +82,10 @@ class AdminController extends Controller
     //ajax change role
     public function ajaxChangeRole(Request $request)
     {
-        Logger($request->all());
+        $updateRoleData = [
+            'role' => $request->role,
+        ];
+        User::where('id', $request->userId)->update($updateRoleData);
     }
 
     //change Role

@@ -68,7 +68,7 @@
                         @csrf
 
                         <div class="col-3 input-group mb-3">
-                            <button class="btn bg-black  text-white"><i class="fa-solid fa-database me-1 "></i>
+                            <button class="btn bg-dark  text-white"><i class="fa-solid fa-database me-1 "></i>
                                 {{ $order->total() }}
                             </button>
                             <select class="custom-select" name="orderStatus" id="orderStatus">
@@ -157,7 +157,7 @@
                     </div>
                     <div class="mt-3">
                         {{-- {{ for remaining the searching value after changing the paginate }} --}}
-                        {{-- {{ $order->links() }} --}}
+                        {{ $order->links() }}
 
                     </div>
                     {{-- @else --}}
