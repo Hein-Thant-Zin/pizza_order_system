@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Order;
 use Illuminate\Log\Logger;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     //direct user list page
     public function userList()
     {
+        $order = Order::paginate(4);
         $user = User::where('role', 'user')->paginate(4);
-        return view('admin.user.list', compact('user'));
+        return view('admin.user.list', compact('user', 'ordera'));
     }
 
     //ajax change role
