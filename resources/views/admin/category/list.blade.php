@@ -47,8 +47,12 @@
                     @endif
                     <div class="row">
                         <div class="col-3">
-                            <h4 class=" text-secondary">Search Key : <span class="text-danger"> {{ request('key') }}</span>
-                            </h4>
+                            @if (session('searchKey'))
+                                <h4 class=" text-secondary">{{ session('searchKey') }} : <span class="text-danger">
+                                        {{ request('key') }}</span>
+                                </h4>
+                            @endif
+
                         </div>
 
                         <div class=" col-3 offset-6">

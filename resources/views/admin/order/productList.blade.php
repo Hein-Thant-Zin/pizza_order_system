@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     {{-- alert box for pizzaSuccess --}}
-                    @if (session('createSuccess'))
-                        <div class=" col-4 offset-8">
+                    @if (session('updateSuccess'))
+                        <div class=" col-3 offset-9">
                             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                                <strong><i class="fa-solid fa-check"></i> {{ session('createSuccess') }}</strong>
+                                <strong><i class="fa-solid fa-check"></i> {{ session('updateSuccess') }}</strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
@@ -36,7 +36,7 @@
 
                     {{-- alert box for pizzaDelete --}}
                     @if (session('deleteSuccess'))
-                        <div class=" col-4 offset-8">
+                        <div class=" col-3 offset-9">
                             <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
                                 <strong><i class="fa-sharp fa-solid fa-circle-xmark"></i>
                                     {{ session('deleteSuccess') }}</strong>

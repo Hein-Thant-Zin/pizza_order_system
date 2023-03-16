@@ -73,7 +73,7 @@
                                         <a href="{{ route('product#edit', $pizza->id) }}">
                                             <div class="col-3 offset-5  mt-3">
                                                 <button type="submit" class=" btn btn-dark">
-                                                    <i class=" fa-solid fa-pen-to-square me-2"></i>Edit Pizza</button>
+                                                    <i class=" fa-solid fa-pen-to-square me-2"></i>Edit Product</button>
                                             </div>
                                         </a>
                                     </div>

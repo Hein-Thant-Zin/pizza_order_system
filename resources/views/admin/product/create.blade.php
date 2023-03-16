@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-3 offset-8">
+                            <div class="col-4 offset-8">
                                 <a href="{{ route('products#list') }}"><button
                                         class="btn bg-dark text-white my-3">List</button></a>
                             </div>
@@ -58,7 +58,7 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror --}}
-                                            <label class="my-2 control-label mb-1">Describe your pizza</label>
+                                            <label class="my-2 control-label mb-1">Describe your product</label>
                                             <textarea name="pizzaDescription" id="" class="form-control @error('pizzaDescription') is-invalid  @enderror"
                                                 cols="30" rows="10" placeholder="Enter your description..">{{ old('pizzaDescription') }}</textarea>
                                             @error('pizzaDescription')
@@ -68,7 +68,7 @@
                                             @enderror
 
 
-                                            <label class="control-label mb-1">Upload your pizza picture</label>
+                                            <label class="control-label my-2 pt-2">Upload your product picture</label>
                                             <input id="cc-pament" name="pizzaImage" value="{{ old('pizzaImage') }}"
                                                 type="file"
                                                 class="form-control @error('pizzaImage') is-invalid @enderror"
@@ -79,7 +79,7 @@
                                                 </div>
                                             @enderror
 
-                                            <label class="control-label mb-1">Waiting Time</label>
+                                            <label class="control-label pt-2 my-2">Waiting Time</label>
                                             <input id="cc-pament" name="pizzaWaitingTime"
                                                 value="{{ old('pizzaWaitingTime') }} mins " type="number"
                                                 class="form-control @error('pizzaWaitingTime') is-invalid @enderror"
@@ -91,12 +91,12 @@
                                                 </div>
                                             @enderror
 
-                                            <label class="control-label mb-1">Price</label>
+                                            <label class="control-label pt-2 my-2">Price</label>
                                             <input id="cc-pament" name="pizzaPrice" value="{{ old('pizzaPrice') }}"
                                                 type="number"
                                                 class="form-control @error('pizzaPrice') is-invalid @enderror"
                                                 aria-required="true" aria-invalid="false"
-                                                placeholder="What's the pizza price...">
+                                                placeholder="What's the product price...">
                                             @error('pizzaPrice')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

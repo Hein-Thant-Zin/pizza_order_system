@@ -57,19 +57,23 @@ class ProductController extends Controller
     //direct product details page
     public function details($id)
     {
+        $order = Order::paginate(4);
+        $orderForDate = Order::latest()->first();
         // dd($id);
         $pizza = Product::where('id', $id)->first();
         // dd($pizzas->toArray());
-        return view('admin.product.details', compact('pizza'));
+        return view('admin.product.details', compact('pizza', 'order', 'orderForDate'));
     }
 
 
     //edit product
     public function edit($id)
     {
+        $order = Order::paginate(4);
+        $orderForDate = Order::latest()->first();
         $pizza = Product::where('id', $id)->first();
         $categories = Category::get();
-        return view('admin.product.edit', compact('pizza', 'categories'));
+        return view('admin.product.edit', compact('pizza', 'categories', 'order', 'orderForDate'));
     }
 
     //update product
@@ -91,7 +95,7 @@ class ProductController extends Controller
             $data['image'] = $fileName;
         }
         Product::where('id', $request->pizzaId)->update($data);
-        return redirect()->route('products#list')->with(['createSuccess' => "createSuccess"]);
+        return redirect()->route('products#list')->with(['updateSuccess' => "updateSuccess"]);
     }
 
     //delete

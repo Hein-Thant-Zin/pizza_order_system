@@ -24,6 +24,7 @@ class CategoryController extends Controller
 
         // dd($categories);
         return view('admin.category.list', compact('categories', 'orderForDate', 'order'));
+        return redirect()->route('category#list')->with(['searchKey' => 'Search Key']);
     }
 
     //direct category create page
