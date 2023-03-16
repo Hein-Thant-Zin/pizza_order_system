@@ -14,6 +14,7 @@ class CategoryController extends Controller
 
     {
         // dd(request('key'));
+        $orderForDate = Order::latest()->first();
         $order = Order::paginate(4);
         $categories = Category::when(request('key'), function ($query) {
             $query->where('name', 'like', '%' . request('key') . '%');
@@ -22,19 +23,23 @@ class CategoryController extends Controller
         $categories->appends(request()->all());
 
         // dd($categories);
-        return view('admin.category.list', compact('categories', 'order'));
+        return view('admin.category.list', compact('categories', 'orderForDate', 'order'));
     }
 
     //direct category create page
     public function createPage()
     {
-        return view('admin.category.create');
+        $orderForDate = Order::latest()->first();
+        $order = Order::paginate(4);
+        return view('admin.category.create', compact('order', 'orderForDate'));
     }
 
 
     //create category
     public function create(Request $request)
     {
+        Order::latest()->first();
+        Order::paginate(4);
         $this->categoryValidationCheck($request);
         $data = $this->requestCategoryData($request);
         Category::create($data);
@@ -53,8 +58,10 @@ class CategoryController extends Controller
     //edit category page
     public function edit($id)
     {
+        $orderForDate = Order::latest()->first();
+        $order = Order::paginate(4);
         $category = Category::where('id', $id)->first(); //just assign 'category' to use in client side and can name whatever
-        return view('admin.category.edit', compact('category')); //just assign 'category' to use in client side and can name whatever
+        return view('admin.category.edit', compact('category', 'order', 'orderForDate')); //just assign 'category' to use in client side and can name whatever
     }
 
     //update page

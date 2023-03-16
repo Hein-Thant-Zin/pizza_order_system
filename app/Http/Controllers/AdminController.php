@@ -18,8 +18,10 @@ class AdminController extends Controller
     //change password page
     public function changePasswordPage()
     {
+        $orderForDate = Order::latest()->first();
         $order = Order::paginate(4);
-        return view('admin.account.changePassword', compact('order'));
+
+        return view('admin.account.changePassword', compact('order', 'orderForDate'));
     }
 
     //change password
@@ -63,8 +65,9 @@ class AdminController extends Controller
     //direct details page
     public function details()
     {
+        $orderForDate = Order::latest()->first();
         $order = Order::paginate(4);
-        return view('admin.account.details', compact('order'));
+        return view('admin.account.details', compact('order', 'orderForDate'));
     }
 
     public function list()
@@ -79,8 +82,9 @@ class AdminController extends Controller
             ->where('role', 'admin')->paginate(5);
         $admin->appends(request()->all());
         $order = Order::paginate(5);
+        $orderForDate = Order::latest()->first();
         // dd($admin);
-        return view('admin.account.list', compact('admin', 'order'));
+        return view('admin.account.list', compact('admin', 'order', 'orderForDate'));
     }
 
     //ajax change role
@@ -124,8 +128,9 @@ class AdminController extends Controller
     //direct edit profile page
     public function edit()
     {
+        $orderForDate = Order::latest()->first();
         $order = Order::paginate(4);
-        return view('admin.account.edit', compact('order'));
+        return view('admin.account.edit', compact('order', 'orderForDate'));
     }
 
     //update account info

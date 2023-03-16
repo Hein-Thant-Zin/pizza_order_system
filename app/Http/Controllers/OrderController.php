@@ -14,6 +14,7 @@ class OrderController extends Controller
     public function orderList()
     {
         // return "test";
+        $orderForDate = Order::latest()->first();
         $order = Order::select('orders.*', 'users.name as user_name')
             ->when(request('key'), function ($query) {
                 $query->where('users.name', 'products.name', 'like', '%' . request('key') . '%');
@@ -24,7 +25,7 @@ class OrderController extends Controller
         $order->appends(request()->all());
         // dd($order->toArray());
 
-        return view('admin.order.list', compact('order'));
+        return view('admin.order.list', compact('order', 'orderForDate'));
     }
 
     //sort with ajax

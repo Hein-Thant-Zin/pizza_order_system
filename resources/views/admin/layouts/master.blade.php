@@ -115,9 +115,13 @@
                                                 <div class="content">
                                                     <p>You got {{ $order->total() }} orders</p>
                                                     <span
-                                                        class="date">{{ $order->created_at->format('Y-m-d') }}</span>
-                                                </div>
+                                                        class="date">{{ $orderForDate->created_at->format('d/m/y g:i:s A') }}</span>
+                                                    {{-- @foreach ($order as $o)
+                                                        <span
+                                                            class="date">{{ $o->created_at->format('d/m/y H:i:s') }}</span>
+                                                    @endforeach --}}
 
+                                                </div>
                                             </div>
                                             {{-- <div class="notifi__item">
                                                 <div class="bg-c2 img-cir img-40">

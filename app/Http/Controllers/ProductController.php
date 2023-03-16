@@ -15,6 +15,7 @@ class ProductController extends Controller
     public function list()
     {
         $order = Order::paginate(4);
+        $orderForDate = Order::latest()->first();
         $pizzas = Product::select('products.*', 'categories.name as category_name')
             ->when(request('key'), function ($query) {
                 $query->where('products.name', 'like', '%' . request('key') . '%');
@@ -22,20 +23,24 @@ class ProductController extends Controller
             ->leftJoin('categories', 'products.category_id', 'categories.id')
             ->orderBy('products.created_at', 'desc')
             ->paginate(4);
-        return view('admin.product.pizzaList', compact('pizzas', 'order'));
+        return view('admin.product.pizzaList', compact('pizzas', 'order', 'orderForDate'));
     }
 
     //direct product create page
     public function createPage()
     {
+        $order = Order::paginate(4);
+        $orderForDate = Order::latest()->first();
         $categories = Category::select('id', 'name')->get();
         // dd($categories->toArray());
-        return view('admin.product.create', compact('categories'));
+        return view('admin.product.create', compact('categories', 'order', 'orderForDate'));
     }
 
     //create product
     public function create(Request $request)
     {
+        $order = Order::paginate(4);
+        $orderForDate = Order::latest()->first();
         // dd($request->all());
         $this->productValidationCheck($request, 'create');
         $data = $this->requestProductInfo($request);
