@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccff3bb3ed0b27422290048de1b1981c",
+    "content-hash": "ca1fdb1daac9901081740f5f6229e91c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -648,6 +648,68 @@
                 }
             ],
             "time": "2022-02-20T15:07:15+00:00"
+        },
+        {
+            "name": "geo-sot/laravel-env-editor",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeoSot/Laravel-EnvEditor.git",
+                "reference": "0cf5ebe510a404862d83992974169a2d5e155968"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeoSot/Laravel-EnvEditor/zipball/0cf5ebe510a404862d83992974169a2d5e155968",
+                "reference": "0cf5ebe510a404862d83992974169a2d5e155968",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^8|^9",
+                "php": "^8"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "nunomaduro/larastan": "^2",
+                "orchestra/testbench": "^7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GeoSot\\EnvEditor\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "EnvEditor": "GeoSot\\EnvEditor\\Facades\\EnvEditor"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeoSot\\EnvEditor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Geo Sot",
+                    "email": "geo.sotis@gmail.com"
+                }
+            ],
+            "description": "A laravel Package that supports .Env File, editing and backup ",
+            "keywords": [
+                "EnvEditor",
+                "geo-sot",
+                "laravel",
+                "laravel-env-editor"
+            ],
+            "support": {
+                "issues": "https://github.com/GeoSot/Laravel-EnvEditor/issues",
+                "source": "https://github.com/GeoSot/Laravel-EnvEditor/tree/2.0.0"
+            },
+            "time": "2022-03-28T22:14:17+00:00"
         },
         {
             "name": "graham-campbell/result-type",

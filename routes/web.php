@@ -167,4 +167,8 @@ Route::middleware(['auth'])->group(function () {
 
 //user
 
+Route::get('env', function () {
+    return view('vendor.env-editor.index');
+});
+
 //home
