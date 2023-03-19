@@ -119,6 +119,7 @@
                             </table>
 
                         </div>
+
                         <div class="mt-3">
                             {{-- {{ for remaining the searching value after changing the paginate }} --}}
                             {{-- {{ $categories->links() }} --}}

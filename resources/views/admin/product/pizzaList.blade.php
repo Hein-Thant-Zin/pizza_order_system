@@ -92,6 +92,7 @@
                                             <td class="col-3"><img class="w-50 img-thumbnail shadow-sm"
                                                     src="{{ asset('storage/' . $pizza->image) }}"
                                                     alt="Cutest girl on the entire planet"></td>
+
                                             <td>{{ $pizza->name }}</td>
                                             {{-- <td>{{ $pizza->description }}</td> --}}
                                             <td>{{ $pizza->price }}</td>
@@ -131,6 +132,7 @@
                             </table>
 
                         </div>
+
                         <div class="mt-3">
                             {{-- {{ for remaining the searching value after changing the paginate }} --}}
                             {{ $pizzas->links() }}

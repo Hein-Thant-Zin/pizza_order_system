@@ -76,6 +76,8 @@ class CategoryController extends Controller
         return redirect()->route('category#list');
     }
 
+
+
     //category validation check
     private function categoryValidationCheck($request)
     {

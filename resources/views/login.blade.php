@@ -23,9 +23,6 @@
             @error('password')
                 <span class=" text-danger">{{ $message }}</span>
             @enderror
-
-
-
             <button class="au-btn au-btn--block au-btn--green mt-3  m-b-20" type="submit">log in
             </button>
         </form>

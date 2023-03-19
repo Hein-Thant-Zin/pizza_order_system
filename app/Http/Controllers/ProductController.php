@@ -117,7 +117,8 @@ class ProductController extends Controller
             'pizzaCategory' => 'required',
             'pizzaDescription' => 'required|min:10',
             'pizzaPrice' => 'required',
-            'pizzaWaitingTime' => 'required'
+            'pizzaWaitingTime' => 'required',
+            // 'pizzaImage' => 'required'
 
         ];
         $validationRules['pizzaImage'] = $action == "create" ? 'required|mimes:jpg,png,jpeg,webp|file' : 'mimes:jpg,png,jpeg,webp|file';

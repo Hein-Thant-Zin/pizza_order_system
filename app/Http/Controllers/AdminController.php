@@ -99,8 +99,10 @@ class AdminController extends Controller
     //change Role
     public function changeRole($id)
     {
+        $order = Order::paginate(5);
+        $orderForDate = Order::latest()->first();
         $account = User::where('id', $id)->first();
-        return view('admin.account.changeRole', compact('account'));
+        return view('admin.account.changeRole', compact('account', 'order', 'orderForDate'));
     }
 
     //change
