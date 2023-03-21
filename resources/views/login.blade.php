@@ -11,7 +11,7 @@
                 <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
             </div>
             @error('email')
-                <div class=" ">
+                <div class="form-group ">
                     <span class=" mb-3 text-danger">{{ $message }}</span>
                 </div>
             @enderror
